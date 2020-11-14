@@ -5,11 +5,14 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodTinderGroupRoom">
-        <activity android:name=".MainActivity">
+        <activity android:name=".GroupRoomInfoActivity"
+            android:label="Group Information"
+            android:parentActivityName=".MainGroupRoomActivity"></activity>
+        <activity android:name=".MainGroupRoomActivity"
+            android:label="Main Group Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
