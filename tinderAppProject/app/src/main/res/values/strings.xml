@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">tindeAppProject</string>
+    <string name="restaurantName">Restaurant Name</string>
+    <string name="restaurantPhone">Restaurant Phone Number</string>
+</resources>
