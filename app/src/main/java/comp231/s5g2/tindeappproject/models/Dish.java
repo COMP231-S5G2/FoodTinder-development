@@ -11,6 +11,9 @@ public class Dish {
         this.description = description;
     }
 
+    public Dish() {
+    }
+
     public String getNome() {
         return nome;
     }
@@ -19,7 +22,7 @@ public class Dish {
         this.nome = nome;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
