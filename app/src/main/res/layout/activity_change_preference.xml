@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ChangePreference">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:text="Set Preference"
+        android:textAlignment="inherit"
+        android:textColor="#2196F3"
+        android:textSize="30dp" />
+
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="182dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="283dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginRight="100dp"
+        android:text="Vegan Dish" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="169dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="364dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginRight="100dp"
+        android:text="Peanut-contained Dish" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="195dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="169dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="398dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="80dp"
+        android:text="Cheese-contained Dish" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="143dp"
+        android:layout_height="49dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="41dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="192dp"
+        android:layout_marginEnd="214dp"
+        android:layout_marginRight="30dp"
+        android:text="Search radius: "
+        android:textSize="20dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="148dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="195dp"
+        android:layout_marginEnd="47dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="272dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="69dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="507dp"
+        android:layout_marginRight="80dp"
+        android:background="@drawable/cutom_button_ok"
+        android:text="Save"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="584dp"
+        android:layout_marginRight="110dp"
+        android:background="@drawable/cutom_button_ok"
+        android:text="Cancel"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="97dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:hint="   Set Your location"
+        android:inputType="textPersonName"
+        android:textAlignment="inherit"
+        android:textColor="@android:color/tab_indicator_text"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="286dp"
+        android:text="Restrictions: "
+        android:textSize="20dp" />
+
+
+    <CheckBox
+        android:id="@+id/checkBox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="319dp"
+        android:layout_marginEnd="79dp"
+        android:text="Vegetarian Dish" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="41dp"
+        android:layout_marginBottom="285dp"
+        android:text="Allergies: "
+        android:textSize="20dp" />
+</RelativeLayout>

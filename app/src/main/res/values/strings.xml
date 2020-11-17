@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Draft</string>
+
+        <string-array name="radius_array">
+            <item>500m</item>
+            <item>1km</item>
+            <item>3km</item>
+            <item>5km</item>
+            <item>Specific location choice</item>
+        </string-array>
+</resources>
