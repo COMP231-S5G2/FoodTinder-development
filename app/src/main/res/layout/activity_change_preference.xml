@@ -114,7 +114,7 @@
         android:layout_marginTop="584dp"
         android:layout_marginRight="110dp"
         android:background="@drawable/cutom_button_ok"
-        android:text="Cancel"
+        android:text="Back"
         android:textColor="@android:color/white" />
 
     <EditText
@@ -147,7 +147,7 @@
 
 
     <CheckBox
-        android:id="@+id/checkBox5"
+        android:id="@+id/checkBox4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
