@@ -40,13 +40,14 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("message");
-    Restaurant restaurant = new Restaurant();
+    //Restaurant restaurant = new Restaurant();
 
     private TextView restaurantPhone;
     private TextView restaurantName;
     private RecyclerView listDishes;
+    AdapterListDishes adapter = new AdapterListDishes();
 
-    public List<Dish> dishes = new ArrayList<>();
+    public List<Dish> dishes = new ArrayList<Dish>();
     //public List<String> dishesName = new ArrayList<>();
 
 
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        matchedRestaurantID = "-MMDs-A6h1cKhBS5Ix6F";
+        matchedRestaurantID = "-MMDriFDJXNS9dSmrusC";
 
         restaurantName = findViewById(R.id.restaurantName);
         restaurantPhone = findViewById(R.id.restaurantPhone);
@@ -98,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        Log.e("Dishes size outside ", " " + dishes.size());
+
+
         ///DISPLAYING THE DISHES
 
         listDishes = findViewById(R.id.RecyclerViewDishes);
@@ -105,19 +109,26 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference dishesRef = myRef.child(matchedRestaurantID).child("dishes");
         dishesRef.addValueEventListener(new ValueEventListener() {
 
+            Dish dish;
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                dishes.clear();
+
                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-                    Dish dish = (Dish) childDataSnapshot.getValue(Dish.class);
-                    Log.e("Dish name"," "+dish.getNome());
-                    Log.e("Dish"," "+dish.getDescription());
-                    Log.e("Dish"," "+dish.getPrice().toString());
-                    Dish newDish = new Dish(dish.getNome(),dish.getPrice(),dish.getDescription());
-                    dishes.add(newDish);
-                    Log.e("Dishes size"," "+ dishes.size());
+
+                    Dish dish = childDataSnapshot.getValue(Dish.class);
+                    dishes.add(dish);
+
                 }
 
+                adapter = new AdapterListDishes(dishes);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+
+                listDishes.setHasFixedSize(true);
+                listDishes.setLayoutManager(layoutManager);
+                listDishes.setAdapter(adapter);
             }
 
             @Override
@@ -128,33 +139,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-/*        Dish dish1 = new Dish("Fried Egg", 123,"very good");
-        Dish dish2 = new Dish("Fries", 32.1,"vgreat");
-        Dish dish3 = new Dish("omelets", 23.3,"mediocre");
-        Dish dish5 = new Dish("omelets", 23.3,"mediocre");
-        Dish dish6 = new Dish("omelets", 23.3,"mediocre");
-        Dish dish7 = new Dish("omelets", 23.3,"mediocre");
-
-        dishes.add(dish1);
-        dishes.add(dish2);
-        dishes.add(dish3);
-        dishes.add(dish5);
-        dishes.add(dish6);
-        dishes.add(dish7);*/
-
-        Log.e("Dishes size outside "," "+ dishes.size());
-
-
-        AdapterListDishes adapter = new AdapterListDishes(dishes);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-
-        listDishes.setHasFixedSize(true);
-        listDishes.setLayoutManager(layoutManager);
-        listDishes.setAdapter(adapter);
-
     }
 }
+
 
 
 

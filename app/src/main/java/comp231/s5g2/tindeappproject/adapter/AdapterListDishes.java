@@ -17,7 +17,8 @@ import comp231.s5g2.tindeappproject.R;
 import comp231.s5g2.tindeappproject.models.Dish;
 
 public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.MyViewHolder> {
-
+    public AdapterListDishes() {
+    }
 
     private List<Dish> dishList;
     //private List<String> dishName;
