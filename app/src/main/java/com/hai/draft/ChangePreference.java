@@ -109,8 +109,8 @@ public class ChangePreference extends AppCompatActivity {
             @Override
             //TODO Implement into db
             public void onClick(View v) {
-                boolean dirty = ((Button) btnSave).isSelected();
-                if (!dirty)
+                boolean selected = ((Button) btnSave).isSelected();
+                if (!selected)
                     saveDialogFragment.show(getSupportFragmentManager(),null);
                 else
                     Toast.makeText(getApplicationContext(),"Return main activity", Toast.LENGTH_SHORT).show();
