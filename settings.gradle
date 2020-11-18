@@ -1,2 +1,3 @@
+include ':findingmatch'
 include ':grouproom'
 rootProject.name = "FoodTinderGroupRoom"

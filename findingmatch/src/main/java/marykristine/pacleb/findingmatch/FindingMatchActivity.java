@@ -16,7 +16,6 @@ public class FindingMatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finding_match_activity);
 
-
     }
 
     //Method for swiping right to take user in next activity

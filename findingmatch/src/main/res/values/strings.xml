@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">findingmatch</string>
+
+
+    <!--Spinner item list-->
+    <array name="foodPreference">
+    <item>Vegan</item>
+    <item>Vegetarian</item>
+    <item>Canadian</item>
+    <item>Asian</item>
+    <item>Mediterrain</item>
+    <item>Brazilian</item>
+    <item>Indian</item>
+    </array>
+
 </resources>

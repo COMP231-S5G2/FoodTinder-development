@@ -8,10 +8,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodTinderGroupRoom">
-        <activity android:name=".GroupRoomInfoActivity"
+        <activity android:name=".FindingMatchActivity"></activity>
+        <activity android:name=".FindingMatchHomeActivity" />
+        <activity
+            android:name=".GroupRoomInfoActivity"
             android:label="Group Information"
-            android:parentActivityName=".MainGroupRoomActivity"></activity>
-        <activity android:name=".MainGroupRoomActivity"
+            android:parentActivityName=".MainGroupRoomActivity" />
+        <activity
+            android:name=".MainGroupRoomActivity"
             android:label="Main Group Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

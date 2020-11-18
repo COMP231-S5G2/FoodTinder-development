@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".GroupRoomInfoActivity"
     android:orientation="vertical"
-    android:background="#F3E5E4">
+    android:background="@color/light_red_bg">
 
     <ImageView
         android:layout_width="match_parent"
