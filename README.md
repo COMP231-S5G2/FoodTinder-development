@@ -1,1 +1,1 @@
-# FoodTinder-development - Felipe Initial Commit and branch creation
+# FoodTinder-development - Bernardo Initial Commit and branch creation
