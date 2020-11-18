@@ -2,9 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+=======
+    android:id="@+id/DishesList"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+>>>>>>> Felipe
 
     <TextView
         android:id="@+id/restaurantName"
@@ -38,6 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/restaurantName" />
 
+<<<<<<< HEAD
     <ListView
         android:id="@+id/listView"
         android:layout_width="0dp"
@@ -45,6 +53,17 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+=======
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerViewDishes"
+        android:layout_width="333dp"
+        android:layout_height="421dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+>>>>>>> Felipe
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/restaurantPhone" />

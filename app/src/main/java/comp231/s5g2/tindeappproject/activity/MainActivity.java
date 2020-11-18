@@ -1,16 +1,33 @@
+<<<<<<< HEAD
 package comp231.s5g2.tindeappproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+=======
+package comp231.s5g2.tindeappproject.activity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+>>>>>>> Felipe
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+<<<<<<< HEAD
+=======
+import android.widget.Adapter;
+>>>>>>> Felipe
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+<<<<<<< HEAD
+=======
+import com.google.android.material.datepicker.MaterialDatePicker;
+>>>>>>> Felipe
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,9 +38,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Map;
 
+=======
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import comp231.s5g2.tindeappproject.R;
+import comp231.s5g2.tindeappproject.adapter.AdapterListDishes;
+>>>>>>> Felipe
 import comp231.s5g2.tindeappproject.models.Dish;
 import comp231.s5g2.tindeappproject.models.Restaurant;
 
@@ -32,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("message");
+<<<<<<< HEAD
     Restaurant restaurant = new Restaurant();
 
     private TextView restaurantPhone;
@@ -40,6 +68,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView listDishes;
     private double dishPrice;
     private List<Dish> dishes = new ArrayList<Dish>();
+=======
+    //Restaurant restaurant = new Restaurant();
+
+    private TextView restaurantPhone;
+    private TextView restaurantName;
+    private RecyclerView listDishes;
+    AdapterListDishes adapter = new AdapterListDishes();
+
+    public List<Dish> dishes = new ArrayList<Dish>();
+    //public List<String> dishesName = new ArrayList<>();
+>>>>>>> Felipe
 
 
     private String matchedRestaurantID;
@@ -52,11 +91,16 @@ public class MainActivity extends AppCompatActivity {
 
         matchedRestaurantID = "-MMDriFDJXNS9dSmrusC";
 
+<<<<<<< HEAD
 
 
         restaurantName = findViewById(R.id.restaurantName);
         restaurantPhone = findViewById(R.id.restaurantPhone);
         restaurantImage = findViewById(R.id.imageView);
+=======
+        restaurantName = findViewById(R.id.restaurantName);
+        restaurantPhone = findViewById(R.id.restaurantPhone);
+>>>>>>> Felipe
 
         DatabaseReference nameRef = myRef.child(matchedRestaurantID).child("restaurantName");
 
@@ -93,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+<<<<<<< HEAD
         listDishes = findViewById(R.id.DishesList);
 
         DatabaseReference dishesRef = myRef.child(matchedRestaurantID).child("dishes");
@@ -136,6 +181,72 @@ public class MainActivity extends AppCompatActivity {
 /*      Dish dish1 = new Dish("Fried Egg", 123,"very good");
         Dish dish2 = new Dish("Fries", 32.1,"vgreat");
         Dish dish3 = new Dish("omelets", 23.3,"mediocre");
+=======
+        Log.e("Dishes size outside ", " " + dishes.size());
+
+
+        ///DISPLAYING THE DISHES
+
+        listDishes = findViewById(R.id.RecyclerViewDishes);
+
+        DatabaseReference dishesRef = myRef.child(matchedRestaurantID).child("dishes");
+        dishesRef.addValueEventListener(new ValueEventListener() {
+
+            Dish dish;
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                dishes.clear();
+
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+
+                    Dish dish = childDataSnapshot.getValue(Dish.class);
+                    dishes.add(dish);
+
+                }
+
+                adapter = new AdapterListDishes(dishes);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+
+                listDishes.setHasFixedSize(true);
+                listDishes.setLayoutManager(layoutManager);
+                listDishes.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+
+    }
+}
+
+
+
+
+
+
+
+/*
+
+       Dish dish1 = new Dish("Fried Egg", 123,"very good");
+        Dish dish2 = new Dish("Fries", 32.1,"vgreat");
+        Dish dish3 = new Dish("omelets", 23.3,"mediocre");
+        Dish dish5 = new Dish("omelets", 23.3,"mediocre");
+        Dish dish6 = new Dish("omelets", 23.3,"mediocre");
+        Dish dish7 = new Dish("omelets", 23.3,"mediocre");
+
+        dishes.add(dish1);
+        dishes.add(dish2);
+        dishes.add(dish3);
+        dishes.add(dish5);
+        dishes.add(dish6);
+        dishes.add(dish7);
+>>>>>>> Felipe
 
 
         List<Dish> dishes = new ArrayList<>();
@@ -149,5 +260,8 @@ public class MainActivity extends AppCompatActivity {
         restaurant.setRestaurantPhone("3133224");
 
         myRef.push().setValue(restaurant);*/
+<<<<<<< HEAD
     }
 }
+=======
+>>>>>>> Felipe

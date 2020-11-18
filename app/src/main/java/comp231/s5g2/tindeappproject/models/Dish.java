@@ -11,6 +11,12 @@ public class Dish {
         this.description = description;
     }
 
+<<<<<<< HEAD
+=======
+    public Dish() {
+    }
+
+>>>>>>> Felipe
     public String getNome() {
         return nome;
     }
@@ -19,7 +25,11 @@ public class Dish {
         this.nome = nome;
     }
 
+<<<<<<< HEAD
     public double getPrice() {
+=======
+    public Double getPrice() {
+>>>>>>> Felipe
         return price;
     }
 
