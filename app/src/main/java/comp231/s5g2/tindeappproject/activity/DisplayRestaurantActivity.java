@@ -1,41 +1,29 @@
 package comp231.s5g2.tindeappproject.activity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
+
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
 import comp231.s5g2.tindeappproject.R;
 import comp231.s5g2.tindeappproject.adapter.AdapterListDishes;
 import comp231.s5g2.tindeappproject.models.Dish;
 import comp231.s5g2.tindeappproject.models.Restaurant;
 
-public class MainActivity extends AppCompatActivity {
+public class DisplayRestaurantActivity extends AppCompatActivity {
 
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
