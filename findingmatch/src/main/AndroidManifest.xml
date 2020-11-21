@@ -22,7 +22,7 @@
 
         <!--Main Activity-->
         <activity
-            android:name=".FindingMatchActivity"
+            android:name=".UploadImageActivity"
             android:label="Find Match Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

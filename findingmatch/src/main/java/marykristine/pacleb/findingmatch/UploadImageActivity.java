@@ -28,9 +28,9 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 public class UploadImageActivity extends AppCompatActivity {
     //declare layout controls
-    private EditText etFoodName, etRestauName, etRestauLocation;
-    private CheckBox cboPeanut, cboSeafood, cboDairy, cboMeat, cboGluten;
-    private Button btnChooseImg, btnAddImg, btnViewImgList;
+    private EditText etFoodName, etRestauLocation;
+   private CheckBox cboPeanut, cboSeafood, cboDairy, cboMeat, cboGluten;
+    private Button btnAddImg;
     private ImageView foodImageView;
 
     //constants
@@ -44,7 +44,7 @@ public class UploadImageActivity extends AppCompatActivity {
 
     private Uri imageUri;
 
-    private String inputFoodName, inputRestauName, inputRestauLoc, inputPeanut, inputSeafood, inputDairy, inputMeat, inputGluten;
+    private String inputFoodName, inputRestauLoc, inputPeanut, inputSeafood, inputDairy, inputMeat, inputGluten, timeStamp;
     private SQLiteHelper dbHelper;
 
     @Override
@@ -65,7 +65,6 @@ public class UploadImageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 imagePickDialog();
-
             }
         });
 
@@ -79,25 +78,23 @@ public class UploadImageActivity extends AppCompatActivity {
 
     }
 
-    //get input from layout to db
-    private void getData() {
-        //get input from Edittext
-        inputFoodName = ""+etFoodName.getText().toString().trim();
-        inputRestauName = ""+etRestauName.getText().toString().trim();
-        inputRestauLoc = ""+etRestauLocation.getText().toString().trim();
+    //initialized layout objects
+    private void init(){
+        etFoodName =findViewById(R.id.et_FoodName);
+        etRestauLocation =findViewById(R.id.et_RestaurantLocation);
 
-        //get selected from Checkbox
-        inputPeanut = ""+cboPeanut.getText().toString().trim();
-        inputSeafood = ""+cboSeafood.getText().toString().trim();
-        inputDairy = ""+cboDairy.getText().toString().trim();
-        inputMeat = ""+cboMeat.getText().toString().trim();
-        inputGluten = ""+cboGluten.getText().toString().trim();
+        cboPeanut =findViewById(R.id.cbo_Peanut);
+        cboSeafood =findViewById(R.id.cbo_Seafood);
+        cboDairy =findViewById(R.id.cbo_Dairy);
+        cboMeat =findViewById(R.id.cbo_Meat);
+        cboGluten =findViewById(R.id.cbo_Gluten);
 
-        //store to long variable id
-        long id = dbHelper.insertInfo(inputFoodName, inputRestauName, inputRestauLoc, ""+imageUri);
-        Toast.makeText(this,"Record added to id: " + id, Toast.LENGTH_SHORT).show();
+        foodImageView =findViewById(R.id.iv_FoodImage);
+
+        btnAddImg =findViewById(R.id.btn_AddImg);
 
     }
+
 
     private void imagePickDialog() {
         String[] options = {"Camera", "Gallery"};
@@ -129,23 +126,29 @@ public class UploadImageActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    //initialized layout objects
-    private void init(){
-        etFoodName =findViewById(R.id.et_FoodName);
-        etRestauName =findViewById(R.id.et_RestaurantName);
-        etRestauLocation =findViewById(R.id.et_RestaurantLocation);
+    //get input from layout to db
+    private void getData() {
 
-        cboPeanut =findViewById(R.id.cbo_Peanut);
-        cboSeafood =findViewById(R.id.cbo_Seafood);
-        cboDairy =findViewById(R.id.cbo_Dairy);
-        cboMeat =findViewById(R.id.cbo_Meat);
-        cboGluten =findViewById(R.id.cbo_Gluten);
+        //get input texts from EditText
+        inputFoodName = ""+etFoodName.getText().toString().trim();
+        inputRestauLoc = ""+etRestauLocation.getText().toString().trim();
 
-        btnChooseImg =findViewById(R.id.btn_ChooseImg);
-        btnAddImg =findViewById(R.id.btn_AddImg);
-        btnViewImgList =findViewById(R.id.btn_ViewImgList);
+        //get selected text from Checkbox
+        inputPeanut = ""+cboPeanut.getText().toString().trim();
+        inputSeafood = ""+cboSeafood.getText().toString().trim();
+        inputDairy = ""+cboDairy.getText().toString().trim();
+        inputMeat = ""+cboMeat.getText().toString().trim();
+        inputGluten = ""+cboGluten.getText().toString().trim();
 
-        foodImageView =findViewById(R.id.iv_FoodImage);
+        //get timestamp
+        timeStamp = "" +System.currentTimeMillis();
+
+        //store to long variable id
+        long id = dbHelper.insertInfo(inputFoodName, inputRestauLoc, ""+imageUri,
+                inputPeanut, inputSeafood, inputDairy, inputMeat, inputGluten,
+                timeStamp, timeStamp);
+
+        Toast.makeText(this,"Record added to id: " + id, Toast.LENGTH_LONG).show();
 
     }
 
