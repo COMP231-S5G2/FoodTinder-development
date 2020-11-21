@@ -15,6 +15,7 @@ public class Restaurant {
     private String restaurantPhone;
     private String restaurantAddress;
     private List<Dish> dishes = new ArrayList<Dish>();
+    private String pictureToken;
 
 
     public Restaurant(String restaurantName, String restaurantPhone, String restauranteAddress, List<Dish> dishes) {
@@ -22,6 +23,14 @@ public class Restaurant {
         this.restaurantPhone = restaurantPhone;
         this.restaurantAddress = restauranteAddress;
         this.dishes = dishes;
+    }
+
+    public String getPictureToken() {
+        return pictureToken;
+    }
+
+    public void setPictureToken(String pictureToken) {
+        this.pictureToken = pictureToken;
     }
 
     public Restaurant() {

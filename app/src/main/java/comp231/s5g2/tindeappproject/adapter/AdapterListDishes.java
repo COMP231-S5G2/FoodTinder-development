@@ -53,7 +53,7 @@ public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.My
         holder.dishName.setText(dish.getNome());
         holder.dishDescription.setText(dish.getDescription());
         holder.dishPrice.setText("$"+dish.getPrice().toString());
-        holder.
+        //holder.
 
 
     }

@@ -1,35 +1,38 @@
 package comp231.s5g2.tindeappproject.activity;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.webkit.MimeTypeMap;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import comp231.s5g2.tindeappproject.R;
+import comp231.s5g2.tindeappproject.fragments.MenuFragment;
+import comp231.s5g2.tindeappproject.fragments.RestaurantFragment;
 
 public class CreateRestaurantActivity extends AppCompatActivity {
 
-    Button uploadButton;
-    public Uri imguri;
-    ImageView restaurantImg;
-    StorageReference mStorageRef;
-    private StorageTask uploadTask;
+    Animation rotateOpen, toBottom, rotateClose, fromBottom;
 
+    FloatingActionButton edit, editMenu, editRestaurant;
+
+    TextView labelEditRestaurant, labelEditMenu;
+
+    private boolean clicked = false;
 
     @SuppressLint("ShowToast")
     @Override
@@ -37,73 +40,105 @@ public class CreateRestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_restaurant);
 
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("Restaurants");
-        uploadButton = findViewById(R.id.buttonUpload);
-        restaurantImg = findViewById(R.id.imageViewRestaurant);
+
+        labelEditMenu = findViewById(R.id.editRestaurantLabel);
+        labelEditRestaurant = findViewById(R.id.editMenuLabel);
+
+        edit = findViewById(R.id.editFAB);
+        editMenu = findViewById(R.id.menuEditFAB);
+        editRestaurant = findViewById(R.id.restaurantEditFAB);
+
+        rotateOpen = AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim);
+        rotateClose = AnimationUtils.loadAnimation(this, R.anim.rotate_close_anim);
+        toBottom = AnimationUtils.loadAnimation(this, R.anim.to_botton);
+        fromBottom = AnimationUtils.loadAnimation(this, R.anim.from_botton);
 
 
-        restaurantImg.setOnClickListener(v -> fileChooser());
+        SmartTabLayout smartTabLayout = findViewById(R.id.ViewPagerTab);
 
-        uploadButton.setOnClickListener(v -> {
+        ViewPager viewPager = findViewById(R.id.ViewPager);
 
-            if (imguri == null) {
-                Toast.makeText(CreateRestaurantActivity.this,
-                        "select an Image first", Toast.LENGTH_SHORT).show();
-                }
+        //Adapter Config
+        FragmentPagerAdapter adapter = new FragmentPagerItemAdapter(
+                getSupportFragmentManager(),
+                FragmentPagerItems.with(this)
+                        .add("Menu", MenuFragment.class)
+                        .add("Restaurant", RestaurantFragment.class)
+                        .create());
+        viewPager.setAdapter(adapter);
+        smartTabLayout.setViewPager(viewPager);
 
-             else if (uploadTask != null && uploadTask.isInProgress()) {
-                    Toast.makeText(CreateRestaurantActivity.this,
-                            "Uploading, please, wait", Toast.LENGTH_SHORT).show();
-             } else{
-                Uploader();
-            }
+        View root = viewPager.getRootView();
+
+        edit.setOnClickListener(v ->
+            editButtonClicked());
+
+
+        editMenu.setOnClickListener(v -> {
+
+            clicked = false;
+            Intent intent = new Intent(getApplicationContext(), addDishesActivity.class);
+            startActivity(intent);
+
+
         });
 
+        editMenu.setOnClickListener(v -> clicked = false);
     }
 
-    private String getExtension(Uri uri) {
-        ContentResolver cr = getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
-    }
 
-    private void Uploader() {
+    private void editButtonClicked() {
 
-        StorageReference ref = mStorageRef.child(System.currentTimeMillis() + "." + getExtension(imguri));
-
-        uploadTask =
-                ref.putFile(imguri)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                                // Get a URL to the uploaded content
-                                // Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-                                Toast.makeText(CreateRestaurantActivity.this,
-                                        "Image Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                                imguri = null;
-                                restaurantImg.setImageURI(imguri);
-                            }
-                        });
+        setVisibility(clicked);
+        setClickable(clicked);
+        setAnimation(clicked);
+        clicked = !clicked;
 
     }
 
-    private void fileChooser() {
+    private void setVisibility(boolean clicked) {
 
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
+        if (clicked) {
+            editMenu.setVisibility(View.VISIBLE);
+            labelEditMenu.setVisibility(View.VISIBLE);
+            editRestaurant.setVisibility(View.VISIBLE);
+            labelEditRestaurant.setVisibility(View.VISIBLE);
+        } else {
+            editMenu.setVisibility(View.INVISIBLE);
+            labelEditMenu.setVisibility(View.INVISIBLE);
+            editRestaurant.setVisibility(View.INVISIBLE);
+            labelEditRestaurant.setVisibility(View.INVISIBLE);
+
+
+        }
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imguri = data.getData();
-            restaurantImg.setImageURI(imguri);
+    private void setClickable(boolean clicked) {
+        if (clicked) {
+            editRestaurant.setClickable(false);
+            editMenu.setClickable(false);
+        } else {
+            editRestaurant.setClickable(true);
+            editMenu.setClickable(true);
 
+        }
+    }
+
+    private void setAnimation(boolean clicked) {
+        if (!clicked) {
+            editMenu.startAnimation(fromBottom);
+            labelEditMenu.startAnimation(fromBottom);
+            editRestaurant.startAnimation(fromBottom);
+            labelEditRestaurant.startAnimation(fromBottom);
+            edit.startAnimation(rotateOpen);
+
+        } else {
+            editMenu.startAnimation(toBottom);
+            labelEditMenu.startAnimation(toBottom);
+            editRestaurant.startAnimation(toBottom);
+            labelEditRestaurant.startAnimation(toBottom);
+            edit.startAnimation(rotateClose);
         }
     }
 }
