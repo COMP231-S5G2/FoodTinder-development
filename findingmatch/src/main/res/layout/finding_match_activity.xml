@@ -1,67 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FindingMatchActivity"
-    android:orientation="vertical"
-    android:background="@color/light_red_bg">
+    tools:context=".FindingMatchHomeActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:orientation="horizontal">
+    <com.yuyakaido.android.cardstackview.CardStackView
+        android:id="@+id/card_stack_view"
+        android:layout_width="317dp"
+        android:layout_height="516dp"
+        android:clipToPadding="false"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:text="Location:"/>
-
-        <TextView
-            android:id="@+id/tvLocation"
-            android:layout_width="126dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:background="@drawable/btn_start_match"
-            android:text="Location here..." />
-
-
-
-    </LinearLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="326dp"
-        android:layout_height="343dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/btn_start_match">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="48dp"
-            android:gravity="center"
-            android:text="Food Swipe"
-            app:layout_constraintBottom_toTopOf="@+id/imageView"
-            tools:layout_editor_absoluteX="0dp" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="221dp"
-            android:layout_height="227dp"
-            android:layout_gravity="center"
-            android:layout_marginEnd="52dp"
-            android:layout_marginBottom="76dp"
-            android:src="@drawable/ic_vegan_burger"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
