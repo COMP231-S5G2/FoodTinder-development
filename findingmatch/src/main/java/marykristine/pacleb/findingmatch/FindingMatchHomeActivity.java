@@ -29,11 +29,11 @@ public class FindingMatchHomeActivity extends AppCompatActivity {
                 y2 = touchEvent.getY();
                 //swipe right
                 if (x1 > x2) {
-                    Intent myIntent = new Intent(FindingMatchHomeActivity.this, FindingMatchActivity.class);
+                    Intent myIntent = new Intent(FindingMatchHomeActivity.this, UploadImageActivity.class);
                     startActivity(myIntent);
-                } else //swipe left
+                } else //TODO swipe left to upload image activity
                 {
-                    Intent myIntent = new Intent(FindingMatchHomeActivity.this, FindingMatchHomeActivity.class);
+                    Intent myIntent = new Intent(FindingMatchHomeActivity.this, UploadImageActivity.class);
                     startActivity(myIntent);
                 }
                 break;
