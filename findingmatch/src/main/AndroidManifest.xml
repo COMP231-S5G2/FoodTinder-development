@@ -16,11 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodTinderGroupRoom">
         <!--activity android:name=".UploadImageActivity"></activity-->
+        <!--activity
+            android:name=".FindingMatchActivity"
+            android:label="Set Preference" /-->
+
+        <!--Main Activity-->
         <activity
             android:name=".FindingMatchActivity"
-            android:label="Set Preference" />
-        <activity
-            android:name=".UploadImageActivity"
             android:label="Find Match Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
