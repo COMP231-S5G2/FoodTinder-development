@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +42,7 @@ public class DisplayRestaurantActivity extends AppCompatActivity {
 
 
     private String matchedRestaurantID;
+    private Intent intent;
 
 
     @Override
@@ -48,6 +51,13 @@ public class DisplayRestaurantActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         matchedRestaurantID = "-MMDriFDJXNS9dSmrusC";
+
+        Button nextActivity = findViewById(R.id.buttonNextActivity);
+
+        nextActivity.setOnClickListener(v -> {
+            intent = new Intent(getApplicationContext(), CreateRestaurantActivity.class);
+            startActivity(intent);
+        });
 
         restaurantName = findViewById(R.id.restaurantName);
         restaurantPhone = findViewById(R.id.restaurantPhone);
@@ -147,8 +157,7 @@ public class DisplayRestaurantActivity extends AppCompatActivity {
 
         dishes.add(dish1);
         dishes.add(dish2);
-        dishes.add(dish3);
-        dishes.add(dish5);
+        dishes.add(dish3);\Fe       dishes.add(dish5);
         dishes.add(dish6);
         dishes.add(dish7);
 

@@ -1,14 +1,25 @@
 package comp231.s5g2.tindeappproject.models;
 
+import android.media.session.MediaSession;
+
 public class Dish {
     private String nome;
     private double price;
     private String description;
+    private String imageAcessToken;
 
     public Dish(String nome, double price, String description) {
         this.nome = nome;
         this.price = price;
         this.description = description;
+    }
+
+    public String getImageAcessToken() {
+        return imageAcessToken;
+    }
+
+    public void setImageAcessToken(String imageAcessToken) {
+        this.imageAcessToken = imageAcessToken;
     }
 
     public Dish() {

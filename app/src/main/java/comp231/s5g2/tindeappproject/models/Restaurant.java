@@ -16,6 +16,7 @@ public class Restaurant {
     private String restaurantAddress;
     private List<Dish> dishes = new ArrayList<Dish>();
 
+
     public Restaurant(String restaurantName, String restaurantPhone, String restauranteAddress, List<Dish> dishes) {
         this.restaurantName = restaurantName;
         this.restaurantPhone = restaurantPhone;
