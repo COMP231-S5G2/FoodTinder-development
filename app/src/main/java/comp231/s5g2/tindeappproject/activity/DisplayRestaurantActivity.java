@@ -25,7 +25,8 @@ import comp231.s5g2.tindeappproject.adapter.AdapterListDishes;
 import comp231.s5g2.tindeappproject.models.Dish;
 import comp231.s5g2.tindeappproject.models.Restaurant;
 
-public class DisplayRestaurantActivity extends AppCompatActivity {
+public class
+DisplayRestaurantActivity extends AppCompatActivity {
 
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();

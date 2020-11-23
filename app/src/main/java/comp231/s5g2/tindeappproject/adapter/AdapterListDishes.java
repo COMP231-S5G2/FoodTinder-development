@@ -3,14 +3,11 @@ package comp231.s5g2.tindeappproject.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import comp231.s5g2.tindeappproject.R;
@@ -50,7 +47,7 @@ public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.My
 
         Dish dish = dishList.get(position);
 
-        holder.dishName.setText(dish.getNome());
+        holder.dishName.setText(dish.getName());
         holder.dishDescription.setText(dish.getDescription());
         holder.dishPrice.setText("$"+dish.getPrice().toString());
         //holder.

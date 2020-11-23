@@ -24,27 +24,28 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="169dp"
-            android:layout_height="134dp"
+            android:layout_width="0dp"
+            android:layout_height="175dp"
             android:layout_margin="5dp"
             android:elevation="10dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="false"
-            app:layout_constraintBottom_toTopOf="@+id/guideline7"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/guideline5">
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider">
 
             <ImageView
                 android:id="@+id/imageViewRestaurant"
-                android:layout_width="168dp"
-                android:layout_height="138dp"
+                android:layout_width="404dp"
+                android:layout_height="175dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
                 android:adjustViewBounds="false"
                 android:cropToPadding="true"
+                android:scaleType="fitCenter"
                 android:translationX="-16dp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline7"
                 app:layout_constraintCircleRadius="5dp"
@@ -68,22 +69,23 @@
             android:layout_width="112dp"
             android:layout_height="19dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="16dp"
             android:labelFor="@id/editTextTextWebsite"
             android:text="Restaurant Name:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
         <EditText
             android:id="@+id/editTextRestaurantName"
-            android:layout_width="170dp"
+            android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
             android:ems="10"
             android:hint="Enter Restaurant Name"
             android:inputType="textPersonName"
             android:lines="2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/labelRestaurant" />
 
@@ -92,7 +94,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="4168229090"
             android:inputType="phone"
@@ -163,7 +164,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/white_boarder"
-            app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -225,7 +225,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Phone"
             app:drawableEndCompat="@drawable/ic_baseline_phone_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline7" />

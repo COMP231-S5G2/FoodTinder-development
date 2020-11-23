@@ -1,17 +1,64 @@
 package comp231.s5g2.tindeappproject.models;
 
-import android.media.session.MediaSession;
-
 public class Dish {
-    private String nome;
+    private String name;
     private double price;
     private String description;
     private String imageAcessToken;
-
+    private boolean petSafe,vegan,vegetarian,nutsFree,halal;
+    private int dishID;
     public Dish(String nome, double price, String description) {
-        this.nome = nome;
+        this.name = nome;
         this.price = price;
         this.description = description;
+    }
+
+    public int getDishID() {
+        return dishID;
+    }
+
+    public void setDishID(int dishID) {
+        this.dishID = dishID;
+    }
+
+    public boolean isPetSafe() {
+        return petSafe;
+    }
+
+    public void setPetSafe(boolean petSafe) {
+        this.petSafe = petSafe;
+    }
+
+    public boolean isVegan() {
+        return vegan;
+    }
+
+    public void setVegan(boolean vegan) {
+        this.vegan = vegan;
+    }
+
+    public boolean isVegetarian() {
+        return vegetarian;
+    }
+
+    public void setVegetarian(boolean vegetarian) {
+        this.vegetarian = vegetarian;
+    }
+
+    public boolean isNutsFree() {
+        return nutsFree;
+    }
+
+    public void setNutsFree(boolean nutsFree) {
+        this.nutsFree = nutsFree;
+    }
+
+    public boolean isHalal() {
+        return halal;
+    }
+
+    public void setHalal(boolean halal) {
+        this.halal = halal;
     }
 
     public String getImageAcessToken() {
@@ -25,12 +72,12 @@ public class Dish {
     public Dish() {
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Double getPrice() {

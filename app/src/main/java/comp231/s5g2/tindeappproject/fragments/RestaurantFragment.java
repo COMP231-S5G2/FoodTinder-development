@@ -25,6 +25,7 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,16 +34,19 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import comp231.s5g2.tindeappproject.R;
 import comp231.s5g2.tindeappproject.activity.CreateRestaurantActivity;
+import comp231.s5g2.tindeappproject.interfaces.IEditRestaurant;
 import comp231.s5g2.tindeappproject.models.Owner;
 import comp231.s5g2.tindeappproject.models.Restaurant;
 import static android.app.Activity.RESULT_OK;
 
-public class RestaurantFragment extends Fragment {
+public class RestaurantFragment extends Fragment implements IEditRestaurant {
 
 
     Button uploadButton;
@@ -51,9 +55,10 @@ public class RestaurantFragment extends Fragment {
     StorageReference mStorageRef ;
     private StorageTask uploadTask;
     private EditText mSearchText;
-    private GoogleMap mMap;
+
     EditText editTextRestName, editTextPhoneNumber, editTextWebsite;
     Owner owner = new Owner();
+    List<View> list = new ArrayList<>(); //list of items to be toggled in edit mode
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Restaurants");
@@ -80,7 +85,6 @@ public class RestaurantFragment extends Fragment {
 
 
 
-
         owner.setRestaurant(restaurant);
         owner.setOwnerID("4");
 
@@ -94,7 +98,8 @@ public class RestaurantFragment extends Fragment {
                     assert ownerTemp != null;
                     if (ownerTemp.getRestaurant() != null) {
                         FeedingData(ownerTemp);
-                        ImageViewloader(ownerTemp, view);
+                        ImageViewLoader(ownerTemp, view);
+                        NotClickable();
 
                     }
                 }
@@ -105,6 +110,7 @@ public class RestaurantFragment extends Fragment {
 
             }
         });
+
 
 
         editTextRestName = view.findViewById(R.id.editTextRestaurantName);
@@ -154,6 +160,7 @@ public class RestaurantFragment extends Fragment {
             }
         });
 
+
         return view;
     }
 
@@ -197,9 +204,8 @@ public class RestaurantFragment extends Fragment {
 
     }
 
-    private void ImageViewloader(Owner owner, View view){
+    private void ImageViewLoader(Owner owner, View view){
 
-        Log.e("tokem", "picpth");
 
      StorageReference strPicRef =  FirebaseStorage.getInstance().getReference().child(owner.getRestaurant().getPictureToken());
                   Log.e("Sucess",""+strPicRef.toString());
@@ -260,7 +266,33 @@ public class RestaurantFragment extends Fragment {
 
     }
 
+    public void NotClickable(){
 
+        list.add(editTextRestName);
+        list.add(editTextPhoneNumber);
+        list.add(editTextWebsite);
+        list.add(uploadButton);
+        list.add(restaurantImg);
+        list.add(mSearchText);
+
+        for (View item : list){
+
+            item.setEnabled(false);
+        }
+        uploadButton.setVisibility(View.INVISIBLE);
+    }
+
+
+    public void Clickable(){
+
+
+        for (View item : list) {
+            item.setEnabled(true);
+        }
+        uploadButton.setVisibility(View.VISIBLE);
+        uploadButton.setText("Save Changes");
+
+    }
 }
 
 

@@ -2,6 +2,7 @@ package comp231.s5g2.tindeappproject.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -23,22 +24,32 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import comp231.s5g2.tindeappproject.R;
 import comp231.s5g2.tindeappproject.fragments.MenuFragment;
 import comp231.s5g2.tindeappproject.fragments.RestaurantFragment;
+import comp231.s5g2.tindeappproject.interfaces.IEditRestaurant;
 
 public class CreateRestaurantActivity extends AppCompatActivity {
 
     Animation rotateOpen, toBottom, rotateClose, fromBottom;
 
-    FloatingActionButton edit, editMenu, editRestaurant;
+   public FloatingActionButton edit, editMenu, editRestaurant;
 
     TextView labelEditRestaurant, labelEditMenu;
 
     private boolean clicked = false;
+    private IEditRestaurant listener ;
 
     @SuppressLint("ShowToast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_restaurant);
+
+
+     /*   public void setListener(IEditRestaurant listener)
+        {
+            this.listener = listener ;
+        }*/
+
+
 
 
         labelEditMenu = findViewById(R.id.editRestaurantLabel);
@@ -74,6 +85,8 @@ public class CreateRestaurantActivity extends AppCompatActivity {
             editButtonClicked());
 
 
+
+
         editMenu.setOnClickListener(v -> {
 
             clicked = false;
@@ -83,7 +96,15 @@ public class CreateRestaurantActivity extends AppCompatActivity {
 
         });
 
-        editMenu.setOnClickListener(v -> clicked = false);
+        editRestaurant.setOnClickListener(v -> {
+            RestaurantFragment fragment = new RestaurantFragment();
+            ((RestaurantFragment) fragment).Clickable();
+            clicked = false;
+
+
+        }
+
+        );
     }
 
 
