@@ -1,19 +1,17 @@
 package comp231.s5g2.tindeappproject.models;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class Restaurant {
 
     private String restaurantName;
     private String restaurantPhone;
     private String restaurantAddress;
+    private String webSite;
     private List<Dish> dishes = new ArrayList<Dish>();
     private String pictureToken;
 
@@ -23,6 +21,14 @@ public class Restaurant {
         this.restaurantPhone = restaurantPhone;
         this.restaurantAddress = restauranteAddress;
         this.dishes = dishes;
+    }
+
+    public String getWebSite() {
+        return webSite;
+    }
+
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
     }
 
     public String getPictureToken() {
