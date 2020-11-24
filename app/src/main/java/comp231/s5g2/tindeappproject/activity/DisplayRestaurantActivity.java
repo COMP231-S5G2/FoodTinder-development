@@ -6,23 +6,32 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
 import comp231.s5g2.tindeappproject.R;
 import comp231.s5g2.tindeappproject.adapter.AdapterListDishes;
 import comp231.s5g2.tindeappproject.models.Dish;
+import comp231.s5g2.tindeappproject.models.Owner;
 import comp231.s5g2.tindeappproject.models.Restaurant;
 
 public class
@@ -30,13 +39,16 @@ DisplayRestaurantActivity extends AppCompatActivity {
 
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("message");
+    DatabaseReference myRef = database.getReference("Restaurants");
     //Restaurant restaurant = new Restaurant();
 
-    private TextView restaurantPhone;
-    private TextView restaurantName;
+    private TextView restaurantPhone, restaurantName;
+    private ImageView profilePic;
     private RecyclerView listDishes;
     AdapterListDishes adapter = new AdapterListDishes();
+    Owner owner = new Owner();
+
+    String restaurantImg;
 
     public List<Dish> dishes = new ArrayList<Dish>();
     //public List<String> dishesName = new ArrayList<>();
@@ -51,7 +63,8 @@ DisplayRestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        matchedRestaurantID = "-MMDriFDJXNS9dSmrusC";
+        matchedRestaurantID = "4";
+        //matchedPhotoID = "1";
 
         Button nextActivity = findViewById(R.id.buttonNextActivity);
 
@@ -60,34 +73,26 @@ DisplayRestaurantActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        profilePic = findViewById(R.id.profileImage);
+        listDishes = findViewById(R.id.RecyclerViewDishes);
         restaurantName = findViewById(R.id.restaurantName);
         restaurantPhone = findViewById(R.id.restaurantPhone);
 
-        DatabaseReference nameRef = myRef.child(matchedRestaurantID).child("restaurantName");
+        DatabaseReference ref = myRef.child(matchedRestaurantID);
 
-        nameRef.addValueEventListener(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                restaurantName.setText(dataSnapshot.getValue(String.class));
-                Log.d("restName", "Value is: " + restaurantName.getText());
-            }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("restName", "Failed to read value.", error.toException());
-            }
-        });
-
-        DatabaseReference phoneRef = myRef.child(matchedRestaurantID).child("restaurantPhone");
-
-        phoneRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                restaurantPhone.setText(dataSnapshot.getValue(String.class));
-                Log.d("restName", "Value is: " + restaurantPhone.getText());
+                owner = dataSnapshot.getValue(Owner.class);
+               Restaurant restaurantDB = owner.getRestaurant();
+                restaurantName.setText(restaurantDB.getRestaurantName());
+                restaurantPhone.setText(restaurantDB.getRestaurantPhone());
+                dishes = restaurantDB.getDishes();
+                restaurantImg = restaurantDB.getPictureToken();
+                Log.e("Token",""+restaurantImg);
+                 ImageViewLoader();
             }
 
             @Override
@@ -98,79 +103,35 @@ DisplayRestaurantActivity extends AppCompatActivity {
         });
 
 
-        Log.e("Dishes size outside ", " " + dishes.size());
+        adapter = new AdapterListDishes(dishes);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+
+        listDishes.setHasFixedSize(true);
+        listDishes.setLayoutManager(layoutManager);
+        listDishes.setAdapter(adapter);
 
 
-        ///DISPLAYING THE DISHES
+    }
 
-        listDishes = findViewById(R.id.RecyclerViewDishes);
 
-        DatabaseReference dishesRef = myRef.child(matchedRestaurantID).child("dishes");
-        dishesRef.addValueEventListener(new ValueEventListener() {
+    private void ImageViewLoader() {
 
-            Dish dish;
 
+        StorageReference strPicRef =  FirebaseStorage.getInstance().getReference().child(restaurantImg);
+
+        Log.e("Sucess", "" + strPicRef.toString());
+
+        strPicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                dishes.clear();
-
-                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-
-                    Dish dish = childDataSnapshot.getValue(Dish.class);
-                    dishes.add(dish);
-
-                }
-
-                adapter = new AdapterListDishes(dishes);
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-
-                listDishes.setHasFixedSize(true);
-                listDishes.setLayoutManager(layoutManager);
-                listDishes.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onSuccess(Uri uri) {
+                Log.e("Sucess", "Rest View");
+                Glide.with(DisplayRestaurantActivity.this)
+                        .load(uri)
+                        .into(profilePic);
 
             }
-
         });
-
 
     }
 }
 
-
-
-
-
-
-
-/*
-
-       Dish dish1 = new Dish("Fried Egg", 123,"very good");
-        Dish dish2 = new Dish("Fries", 32.1,"vgreat");
-        Dish dish3 = new Dish("omelets", 23.3,"mediocre");
-        Dish dish5 = new Dish("omelets", 23.3,"mediocre");
-        Dish dish6 = new Dish("omelets", 23.3,"mediocre");
-        Dish dish7 = new Dish("omelets", 23.3,"mediocre");
-
-        dishes.add(dish1);
-        dishes.add(dish2);
-        dishes.add(dish3);\Fe       dishes.add(dish5);
-        dishes.add(dish6);
-        dishes.add(dish7);
-
-
-        List<Dish> dishes = new ArrayList<>();
-        dishes.add(dish1);
-        dishes.add(dish2);
-        dishes.add(dish3);
-
-        restaurant.setDishes(dishes);
-        restaurant.setRestaurantAddress("999 Centennial Avenue");
-        restaurant.setRestaurantName("Tim Hortons");
-        restaurant.setRestaurantPhone("3133224");
-
-        myRef.push().setValue(restaurant);*/

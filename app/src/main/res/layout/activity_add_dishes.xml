@@ -6,4 +6,159 @@
     android:layout_height="match_parent"
     tools:context=".activity.addDishesActivity">
 
+
+        <Button
+            android:id="@+id/createDishButton"
+            android:layout_width="238dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="32dp"
+            android:text="Create"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageViewDish"
+            android:layout_width="0dp"
+            android:layout_height="261dp"
+            android:src="@drawable/ic_baseline_add_photo_alternate_24"
+            app:layout_constraintBottom_toTopOf="@+id/createDishButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline10"
+            app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline9"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="262dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="205dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextDishName"
+            android:layout_width="342dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="60dp"
+            android:ems="10"
+            android:hint="Enter a name for your dish"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.579"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextDishDescription"
+            android:layout_width="332dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="64dp"
+            android:ems="10"
+            android:hint="Enter a description for your dish"
+            android:inputType="textPersonName"
+            android:lineSpacingExtra="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDishName" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="74dp"
+            android:layout_marginTop="20dp"
+            android:text="Select a dish picture:"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Enter the restrictions:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="134dp"
+            android:layout_height="253dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+            <RadioButton
+                android:id="@+id/rbVegetarian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Vegetarian" />
+
+            <RadioButton
+                android:id="@+id/PetSafe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pet safe" />
+
+            <RadioButton
+                android:id="@+id/rbVegan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Vegan" />
+
+            <RadioButton
+                android:id="@+id/rbNutsFree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nuts free" />
+
+            <RadioButton
+                android:id="@+id/rbHalal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Halal" />
+
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_description_24"
+            app:layout_constraintBottom_toTopOf="@+id/editTextDishName"
+            app:layout_constraintStart_toStartOf="@+id/editTextDishName"
+            app:srcCompat="@drawable/ic_baseline_restaurant_24" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_description_24"
+            app:layout_constraintBottom_toTopOf="@+id/editTextDishDescription"
+            app:layout_constraintStart_toStartOf="@+id/editTextDishDescription" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

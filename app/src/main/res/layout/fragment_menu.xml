@@ -21,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/imageViewDish"
             android:layout_width="0dp"
             android:layout_height="261dp"
             android:src="@drawable/ic_baseline_add_photo_alternate_24"
@@ -107,6 +107,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4">
 
             <RadioButton
+                android:id="@+id/rbVegetarian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Vegetarian" />
+
+            <RadioButton
                 android:id="@+id/PetSafe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,13 +126,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Vegan" />
-
-            <RadioButton
-                android:id="@+id/rbVegetarian"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Vegetarian" />
 
             <RadioButton
                 android:id="@+id/rbNutsFree"

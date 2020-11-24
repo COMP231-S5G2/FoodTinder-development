@@ -96,6 +96,9 @@ public class RestaurantFragment extends Fragment implements IEditRestaurant {
                     Log.e("owner ref", "" + snapshot.getKey());
                     Owner ownerTemp = snapshot.getValue(Owner.class);
                     assert ownerTemp != null;
+
+
+
                     if (ownerTemp.getRestaurant() != null) {
                         FeedingData(ownerTemp);
                         ImageViewLoader(ownerTemp, view);
@@ -213,7 +216,7 @@ public class RestaurantFragment extends Fragment implements IEditRestaurant {
             strPicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Log.e("Sucess","Success");
+                Log.e("Sucess",""+strPicRef);
                 Glide.with(view.getContext())
                         .load(uri)
                         .into(restaurantImg);
