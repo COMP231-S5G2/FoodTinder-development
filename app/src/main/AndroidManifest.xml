@@ -9,11 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-
+        <activity android:name=".highlight.HighlightDish"></activity>
         <activity android:name=".activity.addDishesActivity" />
         <activity android:name=".activity.CreateRestaurantActivity" />
         <activity android:name=".activity.DisplayRestaurantActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
