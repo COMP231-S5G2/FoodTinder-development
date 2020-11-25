@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="comp231.s5g2.tindeappproject">
+package="comp231.s5g2.tindeappproject">
 
-    <!--camera permission from Kristine's -->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <!--camera permission from Kristine's -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+<!--camera permission from Kristine's -->
+<uses-permission android:name="android.permission.CAMERA" />
+<!--camera permission from Kristine's -->
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,10 +14,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+
+        <!--Restaurant Activities-->
         <activity android:name=".highlight.HighlightDish"></activity>
         <activity android:name=".activity.AddDishesActivity" />
         <activity android:name=".activity.CreateRestaurantActivity" />
-        <activity android:name=".activity.FindingMatchActivity">
+
+        <!--Finding Match Activities-->
+        <activity android:name=".activity.FindingMatchHomeActivity" />
+        <activity android:name=".activity.FindingMatchActivity" />
+
+        <!--Group Room Activities-->
+        <activity android:name=".activity.MainGroupRoomActivity" />
+        <activity android:name=".activity.GroupRoomInfoActivity" />
+
+        <!--Main-->
+        <activity android:name=".activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,5 +37,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
