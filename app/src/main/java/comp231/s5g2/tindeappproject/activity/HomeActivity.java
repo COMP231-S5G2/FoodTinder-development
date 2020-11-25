@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
         btnAddDishes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),AddDishesActivity.class));
+                startActivity(new Intent(getApplicationContext(),CreateRestaurantActivity.class));
             }
         });
 
@@ -44,7 +44,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
-
 
     private void init() {
         btnAddDishes = findViewById(R.id.btnAddDishesActivity);

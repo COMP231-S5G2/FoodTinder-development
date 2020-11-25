@@ -38,14 +38,14 @@
         android:layout_height="77dp"
         android:layout_marginRight="15dp"
         android:textAllCaps="false"
-        android:text="Add Dishes Activity"/>
+        android:text="Create Restaurant Activity"/>
 
     <Button
         android:id="@+id/btnTbc"
         android:layout_width="140dp"
         android:layout_height="77dp"
         android:textAllCaps="false"
-        android:text="TBC"/>
+        android:text="(no function)"/>
 
   </LinearLayout>
 
