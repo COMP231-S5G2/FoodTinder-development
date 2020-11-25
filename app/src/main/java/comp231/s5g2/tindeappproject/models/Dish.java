@@ -1,5 +1,7 @@
 package comp231.s5g2.tindeappproject.models;
 
+import com.google.firebase.storage.StorageReference;
+
 public class Dish {
     private String name;
     private double price;
@@ -65,7 +67,7 @@ public class Dish {
         return imageAcessToken;
     }
 
-    public void setImageAcessToken(String imageAcessToken) {
+    public void setImageAccessToken(String imageAcessToken) {
         this.imageAcessToken = imageAcessToken;
     }
 

@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,18 +39,16 @@ import comp231.s5g2.tindeappproject.models.Dish;
 import comp231.s5g2.tindeappproject.models.Owner;
 import comp231.s5g2.tindeappproject.models.Restaurant;
 
-public class addDishesActivity extends AppCompatActivity {
-
-
+public class AddDishesActivity extends AppCompatActivity {
 
 
     private List<Dish> dishList = new ArrayList<>();
 
-    public Uri imguri;
+    public Uri imgUri;
     StorageReference storageRef;
     private StorageTask uploadTask;
 
-    private EditText dishName, dishDescription;
+    private EditText dishName, dishDescription, dishPrice;
     private ImageView dishImage;
     private RadioButton petSafe, vegan, vegetarian, nutsFree, halal;
     private Button createDish;
@@ -60,92 +60,89 @@ public class addDishesActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Restaurants");
-    private StorageReference refDish;
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dishes);
+        Log.e("Dishes", "Loading dishes Activity");
 
-        owner.setOwnerID("4");
-
+        owner.setOwnerID("3");
         petSafe = findViewById(R.id.PetSafe);
-        vegan =findViewById(R.id.rbVegan);
+        vegan = findViewById(R.id.rbVegan);
         vegetarian = findViewById(R.id.rbVegetarian);
         nutsFree = findViewById(R.id.rbNutsFree);
         halal = findViewById(R.id.rbHalal);
         dishImage = findViewById(R.id.imageViewDish);
         createDish = findViewById(R.id.createDishButton);
+        dishPrice = findViewById(R.id.editTextPrice);
 
-        storageRef = FirebaseStorage.getInstance().getReference().child("Restaurants")
-                .child(owner.getOwnerID())
-                .child("DishPictures");
+        dishDescription = findViewById(R.id.editTextDishDescription);
+        dishName = findViewById(R.id.editTextDishName);
 
-        DatabaseReference restRef = myRef.child(owner.getOwnerID())
-                .child("restaurant");
+
+        DatabaseReference ownerRef = myRef.child(owner.getOwnerID());
 
         dishImage.setOnClickListener(v -> fileChooser()); //getting the file from phone
 
-        //owner.setRestaurant(restaurant);
-        owner.setOwnerID("4");
-
-        createDish.setOnClickListener(v ->{
-                    if (imguri == null) {
-                        Toast.makeText( this,
-                                "select an Image first", Toast.LENGTH_SHORT).show();
-                    } else if (uploadTask != null && uploadTask.isInProgress()) {
-                        Toast.makeText(this,
-                                "Uploading, please, wait", Toast.LENGTH_SHORT).show();
-                    } else {
-                        dish.setDescription(dishDescription.getText().toString().trim());
-                        dish.setName(dishName.getText().toString().trim());
-                        dish.setHalal(halal.isChecked());
-                        dish.setNutsFree(nutsFree.isChecked());
-                        dish.setPetSafe(petSafe.isChecked());
-                        dish.setVegan(vegan.isChecked());
-                        dish.setVegetarian(vegetarian.isChecked());
-                        dishList.add(dish);
-                        restaurant.setDishes(dishList);
-                        Uploader(owner);
-
-                    }
-                }
-        );
-
-
-        restRef.addValueEventListener(new ValueEventListener() {
+        ownerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     Log.e("Restaurant ref", "" + snapshot.getKey());
-                    Owner ownerTemp = snapshot.getValue(Owner.class);
-                    owner = ownerTemp;
-                    restaurant = ownerTemp.getRestaurant();
-
-                    if(!restaurant.getDishes().isEmpty()){
+                    owner = snapshot.getValue(Owner.class);
+                    Restaurant restaurantDB = owner.getRestaurant();
+                    if (!restaurantDB.getDishes().isEmpty()) {
                         dishList = restaurant.getDishes();
                     }
 
-
-                    if (dishList != null) {
-
-                        dishList.add(dish);
-
-                    }
                 }
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+
+        createDish.setOnClickListener(v -> {
+            if (imgUri == null) {
+                Toast.makeText(this,
+                        "select an Image first", Toast.LENGTH_SHORT).show();
+                dishImage.animate().scaleX(0.25f);
+                dishImage.animate().scaleY(0.25f);
+                dishImage.animate().setDuration(400);
+
+                dishImage.clearAnimation();
+            } else if (uploadTask != null && uploadTask.isInProgress()) {
+                Toast.makeText(this,
+                        "Uploading, please, wait", Toast.LENGTH_SHORT).show();
+            } else {
+
+                dish.setDescription(dishDescription.getText().toString().trim());
+                dish.setName(dishName.getText().toString().trim());
+                dish.setPrice(Double.parseDouble(dishPrice.getText().toString().trim()));
+
+                dish.setHalal(halal.isChecked());
+                dish.setNutsFree(nutsFree.isChecked());
+                dish.setPetSafe(petSafe.isChecked());
+                dish.setVegan(vegan.isChecked());
+                dish.setVegetarian(vegetarian.isChecked());
+                dish.setDishID(0);
+
+                Uploader(owner);
+
+            }
+        });
     }
 
-    /** ----------------------------------- **/
 
-    private String getExtension (Uri uri){
+    /**
+     * -----------------------------------
+     **/
+
+    private String getExtension(Uri uri) {
         ContentResolver cr = Objects.requireNonNull(this.getContentResolver());
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
@@ -154,17 +151,23 @@ public class addDishesActivity extends AppCompatActivity {
 
     private void Uploader(Owner owner) {
 
-        refDish = storageRef.child(dish.getDishID()+ getExtension(imguri));
+        storageRef = FirebaseStorage.getInstance().getReference().child("Restaurants")
+                .child(owner.getOwnerID()).child("Dish_" + dish.getDishID() + "." + getExtension(imgUri));
+        dish.setImageAccessToken(storageRef.getPath());
+        dishList.add(dish);
+        Log.e("Upload", "" + storageRef.toString());
+
         uploadTask =
-                refDish.putFile(imguri)
+
+                storageRef.putFile(imgUri)
                         .addOnSuccessListener(taskSnapshot -> {
+                            owner.getRestaurant().setDishes(dishList);
                             myRef.child(owner.getOwnerID()).setValue(owner);
 
-                            // Get a URL to the uploaded content
                             // Uri downloadUrl = taskSnapshot.getUploadSessionUri();
                             Toast.makeText(this,
                                     "Dish Created Successfully", Toast.LENGTH_SHORT).show();
-                            imguri = null;
+                            imgUri = null;
 
                         });
 
@@ -181,27 +184,12 @@ public class addDishesActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 Log.e("Sucess", "Success");
-                Glide.with(view.getContext())
+                Glide.with(getApplicationContext())
                         .load(uri)
                         .into(dishImage);
 
             }
         });
-    }
-
-
-
-
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imguri = data.getData();
-            dishImage.setImageURI(imguri);
-
-        }
     }
 
 
@@ -213,6 +201,17 @@ public class addDishesActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            imgUri = data.getData();
+            dishImage.setImageURI(imgUri);
+
+        }
+    }
+
 
     private void NotClickable() {
     }

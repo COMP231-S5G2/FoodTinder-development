@@ -1,17 +1,14 @@
 package comp231.s5g2.tindeappproject.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -30,12 +27,12 @@ public class CreateRestaurantActivity extends AppCompatActivity {
 
     Animation rotateOpen, toBottom, rotateClose, fromBottom;
 
-   public FloatingActionButton edit, editMenu, editRestaurant;
+    public FloatingActionButton edit, editMenu, editRestaurant;
 
     TextView labelEditRestaurant, labelEditMenu;
 
     private boolean clicked = false;
-    private IEditRestaurant listener ;
+    private IEditRestaurant listener;
 
     @SuppressLint("ShowToast")
     @Override
@@ -43,13 +40,13 @@ public class CreateRestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_restaurant);
 
+        Log.e("Restaurant", "Loading restaurant Activity");
+
 
      /*   public void setListener(IEditRestaurant listener)
         {
             this.listener = listener ;
         }*/
-
-
 
 
         labelEditMenu = findViewById(R.id.editRestaurantLabel);
@@ -82,27 +79,25 @@ public class CreateRestaurantActivity extends AppCompatActivity {
         View root = viewPager.getRootView();
 
         edit.setOnClickListener(v ->
-            editButtonClicked());
-
-
+                editButtonClicked());
 
 
         editMenu.setOnClickListener(v -> {
 
-            clicked = false;
-            Intent intent = new Intent(getApplicationContext(), addDishesActivity.class);
+
+            Intent intent = new Intent(getApplicationContext(), AddDishesActivity.class);
             startActivity(intent);
 
 
         });
 
         editRestaurant.setOnClickListener(v -> {
-            RestaurantFragment fragment = new RestaurantFragment();
-            ((RestaurantFragment) fragment).Clickable();
-            clicked = false;
+                    RestaurantFragment fragment = new RestaurantFragment();
+                    ((RestaurantFragment) fragment).Clickable();
+                    clicked = false;
 
 
-        }
+                }
 
         );
     }
@@ -136,15 +131,15 @@ public class CreateRestaurantActivity extends AppCompatActivity {
     }
 
     private void setClickable(boolean clicked) {
-        if (clicked) {
-            editRestaurant.setClickable(false);
-            editMenu.setClickable(false);
-        } else {
-            editRestaurant.setClickable(true);
-            editMenu.setClickable(true);
 
-        }
+        editRestaurant.setEnabled(clicked);
+        editMenu.setEnabled(clicked);
+
+        this.clicked = !clicked;
+
+
     }
+
 
     private void setAnimation(boolean clicked) {
         if (!clicked) {

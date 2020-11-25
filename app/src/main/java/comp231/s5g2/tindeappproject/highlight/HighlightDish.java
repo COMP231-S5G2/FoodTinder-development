@@ -2,6 +2,7 @@ package comp231.s5g2.tindeappproject.highlight;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -19,7 +20,7 @@ public class HighlightDish extends AppCompatActivity {
         highlight();
     }
     public void highlight(){
-        Drawable highlight = getResources().getDrawable(R.drawable.highlight_dish); //This code will be added on swipe's activity
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable highlight = getResources().getDrawable(R.drawable.highlight_dish); //This code will be added on swipe's activity
         image.setBackground(highlight);//his code will be added on swipe's activity
     }
 }

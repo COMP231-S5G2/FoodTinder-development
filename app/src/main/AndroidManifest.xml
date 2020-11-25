@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity android:name=".highlight.HighlightDish"></activity>
-        <activity android:name=".activity.addDishesActivity" />
+        <activity android:name=".activity.AddDishesActivity" />
         <activity android:name=".activity.CreateRestaurantActivity" />
         <activity android:name=".activity.DisplayRestaurantActivity">
             <intent-filter>

@@ -58,10 +58,10 @@
         android:id="@+id/buttonNextActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
         android:text="Button"
-        app:layout_constraintStart_toEndOf="@+id/restaurantName"
-        app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.829"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/restaurantPhone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
