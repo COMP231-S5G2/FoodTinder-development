@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainGroupRoomActivity"
+    android:orientation="vertical"
+    android:id="@+id/layoutGroupRoomInfo"
+    android:background="@color/light_red_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/lblGroupRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:text="Group room"
+        />
+
+        <ImageView
+            android:layout_width="78dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_group" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutRoomCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:id="@+id/lblRoomCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/black"
+            android:text="Room Code:"
+            />
+
+        <TextView
+            android:id="@+id/tvRoomCode"
+            android:layout_width="92dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/btn_start_match"
+            android:gravity="center"
+            android:hint="code here" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:id="@+id/lblRoomAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/black"
+            android:text="Admin:"
+            />
+
+        <TextView
+            android:id="@+id/tvRoomAdminUser"
+            android:layout_width="124dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/btn_start_match"
+            android:gravity="center"
+            android:hint="username" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutMembers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="right">
+
+        <TextView
+            android:id="@+id/lblMembers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black"
+            android:text="Members:"
+            />
+
+        <LinearLayout
+            android:layout_width="101dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvMember1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/btn_start_match"
+                android:gravity="center"
+                android:hint="username_1" />
+
+            <TextView
+                android:id="@+id/tvMember2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/btn_start_match"
+                android:gravity="center"
+                android:hint="username_2" />
+
+            <TextView
+                android:id="@+id/tvMember3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/btn_start_match"
+                android:gravity="center"
+                android:hint="username_3" />
+
+            <TextView
+                android:id="@+id/tvMember4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/btn_start_match"
+                android:gravity="center"
+                android:hint="username_4" />
+
+            <TextView
+                android:id="@+id/tvMember5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/btn_start_match"
+                android:gravity="center"
+                android:hint="username_5" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_start_match"
+                android:gravity="center"
+                android:hint="username_6" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:id="@+id/lblLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/black"
+            android:text="Location:"
+            />
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:hint="location here"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lblGroupPref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/black"
+            android:text="Group Preferences:"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutPrefValues"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvPrefV1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pref1"
+            />
+
+        <TextView
+            android:id="@+id/tvPrefV2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="pref2"
+            />
+
+        <TextView
+            android:id="@+id/tvPrefV3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="pref3"
+            />
+
+        <TextView
+            android:id="@+id/tvPrefV4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="pref4"
+            />
+
+        <TextView
+            android:id="@+id/tvPrefV5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="pref5"
+            />
+
+        <TextView
+            android:id="@+id/tvPrefV6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="pref6"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnStartFoodMatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/btn_start_match"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/group_font_color"
+        android:text="start food match"/>
+
+
+</LinearLayout>
