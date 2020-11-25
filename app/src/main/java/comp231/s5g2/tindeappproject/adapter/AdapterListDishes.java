@@ -25,7 +25,7 @@ import comp231.s5g2.tindeappproject.models.Dish;
 
 public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.MyViewHolder> {
 
-    List<Dish> dishList = new ArrayList<>();
+   List<Dish> dishList = new ArrayList<>();
     Context context;
 
     public AdapterListDishes(Context context, List<Dish> dishModel) {
@@ -54,7 +54,7 @@ public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.My
             dishName = itemView.findViewById(R.id.dishNameText);
             dishDescription = itemView.findViewById(R.id.dishDescriptionText);
             dishPrice = itemView.findViewById(R.id.priceText);
-            dishImage = itemView.findViewById(R.id.dishImage);
+            dishImage = itemView.findViewById(R.id.dishImageAdapter);
 
         }
     }

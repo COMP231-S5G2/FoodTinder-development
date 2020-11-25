@@ -3,8 +3,10 @@ package comp231.s5g2.tindeappproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import java.util.List;
 
 import comp231.s5g2.tindeappproject.R;
 import comp231.s5g2.tindeappproject.adapter.AdapterListDishes;
+import comp231.s5g2.tindeappproject.adapter.RestDisplayAdapter;
 import comp231.s5g2.tindeappproject.models.Dish;
 import comp231.s5g2.tindeappproject.models.Owner;
 import comp231.s5g2.tindeappproject.models.Restaurant;
@@ -41,18 +44,17 @@ DisplayRestaurantActivity extends AppCompatActivity {
 
     private TextView restaurantPhone, restaurantName;
     private ImageView profilePic;
-    AdapterListDishes adapter = new AdapterListDishes();
+    //AdapterListDishes adapter = new AdapterListDishes();
     Owner owner = new Owner();
-
-    RecyclerView listDishes;
-
+    //RecyclerView listDishes;
+    private ArrayList<Dish> listDishes;
+    private ListView listView;
     String restaurantImg;
-
     public List<Dish> dishes = new ArrayList<>();
-    //public List<String> dishesName = new ArrayList<>();
-
-
+    private ArrayAdapter<Dish> adapter;
     private Intent intent;
+    StorageReference restRef = FirebaseStorage.getInstance().getReference("Restaurants");
+    StorageReference dishesRef;
 
 
     @Override
@@ -65,14 +67,22 @@ DisplayRestaurantActivity extends AppCompatActivity {
         //matchedPhotoID = "1";
 
         Button nextActivity = findViewById(R.id.buttonNextActivity);
-
         nextActivity.setOnClickListener(v -> {
             intent = new Intent(getApplicationContext(), CreateRestaurantActivity.class);
             startActivity(intent);
         });
 
+       // getDishImages();
+
+
+        dishes = new ArrayList<>();
+        listView = (ListView)findViewById(R.id.listView) ;
+
+
+        dishesRef = restRef.child(matchedRestaurantID);
+
         profilePic = findViewById(R.id.profileImage);
-        listDishes = findViewById(R.id.RecyclerViewDishes);
+       //listDishes = findViewById(R.id.RecyclerViewDishes);
         restaurantName = findViewById(R.id.restaurantName);
         restaurantPhone = findViewById(R.id.restaurantPhone);
 
@@ -83,7 +93,7 @@ DisplayRestaurantActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot !=null) {
                     owner = dataSnapshot.getValue(Owner.class);
                     Restaurant restaurantDB = owner.getRestaurant();
                     restaurantName.setText(restaurantDB.getRestaurantName());
@@ -92,13 +102,15 @@ DisplayRestaurantActivity extends AppCompatActivity {
                     restaurantImg = restaurantDB.getPictureToken();
                     dishes = restaurantDB.getDishes();
                     ImageViewLoader();
+
+                   /* adapter = new RestDisplayAdapter(getApplicationContext(), dishes );
+                    listView.setAdapter(adapter);*/
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Restaurant not Found", Toast.LENGTH_SHORT).show();
 
                 }
             }
-
             @Override
             public void onCancelled(@NotNull DatabaseError error) {
                 // Failed to read value
@@ -107,14 +119,34 @@ DisplayRestaurantActivity extends AppCompatActivity {
         });
 
 
-        adapter = new AdapterListDishes(getApplicationContext(), dishes);
+
+
+
+
+        /*adapter = new AdapterListDishes(getApplicationContext(), dishes);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
         listDishes.setHasFixedSize(true);
         listDishes.setLayoutManager(layoutManager);
         listDishes.setAdapter(adapter);
-
+*/
     }
+
+    public void getDishImages(){
+
+        //getting images
+
+        dishesRef.getDownloadUrl().addOnSuccessListener(uri -> {
+            Log.e("picDish", "success");
+            if (uri != null) {
+                Glide.with(getApplication())
+                        .load(uri)
+                        .into(profilePic);
+            }
+
+        });
+    }
+
 
 
     private void ImageViewLoader() {
