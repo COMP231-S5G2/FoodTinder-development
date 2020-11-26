@@ -1,10 +1,13 @@
 package comp231.s5g2.tindeappproject.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +48,8 @@ public class FindingMatchActivity extends AppCompatActivity {
     List<Dish> dishesList = new ArrayList<>();
     Restaurant restaurant = new Restaurant();
     private ArrayList<ItemModel> items;
+    private RadioGroup radioGroup;
+
 
     //layout Food Restrictions
     private TextView resHalala, resNuts, resVegan, resVegatarian, resPetSafe;
@@ -185,6 +190,17 @@ public class FindingMatchActivity extends AppCompatActivity {
             items.add(new ItemModel(dish.getImageAcessToken(), dish.getName(), restaurant.getRestaurantAddress(), dish.getDishID()));
         }
         return items;
+    }
+
+    private void getRestriction(ArrayList<String> dataReceived){
+        for(String item : dataReceived){
+            RadioButton radioButton = new RadioButton(this);
+            radioButton.setText(item);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                radioButton.setId(View.generateViewId());
+            }
+            radioGroup.addView(radioButton);
+        }
     }
 
 }
