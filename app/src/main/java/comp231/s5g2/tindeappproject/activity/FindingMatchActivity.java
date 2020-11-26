@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
@@ -46,22 +44,13 @@ import comp231.s5g2.tindeappproject.models.Restaurant;
 
 public class FindingMatchActivity extends AppCompatActivity {
     private static final String TAG = "FindingMatchHome";
-
     private CardStackAdapter adapter;
     private CardStackLayoutManager manager;
     private Owner owner = new Owner();
-    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-    List<ItemModel> dishPics = new ArrayList<>();
     List<Dish> dishesList = new ArrayList<>();
     Restaurant restaurant = new Restaurant();
-
-    List<String> imageURIList = new ArrayList<String>();
     private ArrayList<ItemModel> items;
-
-    //declared food information from item_card
-    private TextView tvRadius, tvHalal, tvNuts, tvVegan, tvVegetarian, tvPetSafe;
-    private LinearLayout layoutRadius, layoutFoodRestriction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,17 +73,14 @@ public class FindingMatchActivity extends AppCompatActivity {
                     restaurant = owner.getRestaurant();
                     dishesList = restaurant.getDishes();
                     if (dishesList.size() > 0) {
-                        for (Dish dish : dishesList) {
-                            Log.d("Dishes : ", "" + dish.getName());
-
-                        }
-                        addList(dishesList);
                         adapter = new CardStackAdapter(addList(dishesList));
                         cardStackView.setAdapter(adapter);
                     }
 
                 }
             }
+
+
 
 
             @Override
@@ -106,17 +92,22 @@ public class FindingMatchActivity extends AppCompatActivity {
 
         manager = new CardStackLayoutManager(this, new CardStackListener() {
 
+
+
             @Override
             public void onCardDragging(Direction direction, float ratio) {
                 Log.d(TAG, "onCardDragging: d=" + direction.name() +" ratio=" + ratio);
 
             }
 
+
             @Override
             public void onCardSwiped(Direction direction) {
                 Log.d(TAG, "onCardSwipe: p=" + manager.getTopPosition() +" d=" + direction);
                 if(direction == Direction.Right){
-                    Toast.makeText(FindingMatchActivity.this, "Change activity", Toast.LENGTH_SHORT).show();
+                    ItemModel selectedDish = items.get(manager.getTopPosition()-1);
+
+                    Toast.makeText(FindingMatchActivity.this, selectedDish.getName(), Toast.LENGTH_SHORT).show();
 
                 }
                 if(direction == Direction.Left){
@@ -179,8 +170,11 @@ public class FindingMatchActivity extends AppCompatActivity {
     private List<ItemModel> addList(List<Dish> dishesImgs) {
         items = new ArrayList<ItemModel>();
         for(Dish dish : dishesImgs){
-            items.add(new ItemModel(dish.getImageAcessToken(),dish.getName(), restaurant.getRestaurantAddress()));
+            Log.e("dish picture", dish.getImageAcessToken());
+            items.add(new ItemModel(dish.getImageAcessToken(),dish.getName(), restaurant.getRestaurantAddress(), dish.getDishID()));
         }
+
+
 
         return items;
     }

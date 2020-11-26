@@ -83,18 +83,21 @@ public class CreateRestaurantActivity extends AppCompatActivity {
 
 
         editMenu.setOnClickListener(v -> {
-
-
+            setClickable(clicked);
+            setVisibility(!clicked);
             Intent intent = new Intent(getApplicationContext(), AddDishesActivity.class);
             startActivity(intent);
+
 
 
         });
 
         editRestaurant.setOnClickListener(v -> {
+                    setClickable(clicked);
                     RestaurantFragment fragment = new RestaurantFragment();
                     ((RestaurantFragment) fragment).Clickable();
-                    clicked = false;
+                    setVisibility(!clicked);
+
 
 
                 }
@@ -108,8 +111,6 @@ public class CreateRestaurantActivity extends AppCompatActivity {
         setVisibility(clicked);
         setClickable(clicked);
         setAnimation(clicked);
-        clicked = !clicked;
-
     }
 
     private void setVisibility(boolean clicked) {
@@ -137,12 +138,11 @@ public class CreateRestaurantActivity extends AppCompatActivity {
 
         this.clicked = !clicked;
 
-
     }
 
 
     private void setAnimation(boolean clicked) {
-        if (!clicked) {
+        if (clicked) {
             editMenu.startAnimation(fromBottom);
             labelEditMenu.startAnimation(fromBottom);
             editRestaurant.startAnimation(fromBottom);
@@ -155,6 +155,8 @@ public class CreateRestaurantActivity extends AppCompatActivity {
             editRestaurant.startAnimation(toBottom);
             labelEditRestaurant.startAnimation(toBottom);
             edit.startAnimation(rotateClose);
+
+
         }
     }
 }
