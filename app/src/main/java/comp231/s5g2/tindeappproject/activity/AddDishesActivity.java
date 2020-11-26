@@ -51,15 +51,15 @@ public class AddDishesActivity extends AppCompatActivity {
     private EditText dishName, dishDescription, dishPrice;
     private ImageView dishImage;
     private RadioButton petSafe, vegan, vegetarian, nutsFree, halal;
-    private Button createDish;
 
     private Owner owner = new Owner();
     private Restaurant restaurant = new Restaurant();
     private Dish dish = new Dish();
-    private List<Dish> listDish = new ArrayList();
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Restaurants");
+
+    int listSize = 0;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -75,7 +75,7 @@ public class AddDishesActivity extends AppCompatActivity {
         nutsFree = findViewById(R.id.rbNutsFree);
         halal = findViewById(R.id.rbHalal);
         dishImage = findViewById(R.id.imageViewDish);
-        createDish = findViewById(R.id.createDishButton);
+        Button createDish = findViewById(R.id.createDishButton);
         dishPrice = findViewById(R.id.editTextPrice);
 
         dishDescription = findViewById(R.id.editTextDishDescription);
@@ -90,11 +90,12 @@ public class AddDishesActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    Log.e("Restaurant ref", "" + snapshot.getKey());
                     owner = snapshot.getValue(Owner.class);
-                    Restaurant restaurantDB = owner.getRestaurant();
-                    if (!restaurantDB.getDishes().isEmpty()) {
+                     restaurant = owner.getRestaurant();
+                    if (!restaurant.getDishes().isEmpty()) {
                         dishList = restaurant.getDishes();
+                        listSize = dishList.size();
+                        dish.setDishID(listSize);
                     }
 
                 }
@@ -129,8 +130,6 @@ public class AddDishesActivity extends AppCompatActivity {
                 dish.setPetSafe(petSafe.isChecked());
                 dish.setVegan(vegan.isChecked());
                 dish.setVegetarian(vegetarian.isChecked());
-                dish.setDishID(0);
-
                 Uploader(owner);
 
             }
@@ -161,10 +160,13 @@ public class AddDishesActivity extends AppCompatActivity {
 
                 storageRef.putFile(imgUri)
                         .addOnSuccessListener(taskSnapshot -> {
-                            owner.getRestaurant().setDishes(dishList);
+
+                            Toast.makeText(this,
+                                    "Dish Created Successfully", Toast.LENGTH_SHORT).show();
+                            owner.setRestaurant(restaurant);
+                            imgUri = null;
                             myRef.child(owner.getOwnerID()).setValue(owner);
 
-                            // Uri downloadUrl = taskSnapshot.getUploadSessionUri();
                             Toast.makeText(this,
                                     "Dish Created Successfully", Toast.LENGTH_SHORT).show();
                             imgUri = null;

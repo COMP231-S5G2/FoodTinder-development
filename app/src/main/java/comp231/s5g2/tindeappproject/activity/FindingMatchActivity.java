@@ -1,6 +1,5 @@
 package comp231.s5g2.tindeappproject.activity;
 
-import android.content.ClipData;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,17 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.bumptech.glide.load.model.ResourceLoader;
-import com.google.android.gms.auth.api.signin.internal.Storage;
-import com.google.android.gms.common.util.Strings;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -31,12 +24,12 @@ import com.yuyakaido.android.cardstackview.Direction;
 import com.yuyakaido.android.cardstackview.StackFrom;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import comp231.s5g2.tindeappproject.R;
+import comp231.s5g2.tindeappproject.adapter.CardStackAdapter;
+import comp231.s5g2.tindeappproject.interfaces.CardStackCallback;
 import comp231.s5g2.tindeappproject.models.Dish;
 import comp231.s5g2.tindeappproject.models.ItemModel;
 import comp231.s5g2.tindeappproject.models.Owner;
@@ -81,8 +74,6 @@ public class FindingMatchActivity extends AppCompatActivity {
             }
 
 
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -93,29 +84,28 @@ public class FindingMatchActivity extends AppCompatActivity {
         manager = new CardStackLayoutManager(this, new CardStackListener() {
 
 
-
             @Override
             public void onCardDragging(Direction direction, float ratio) {
-                Log.d(TAG, "onCardDragging: d=" + direction.name() +" ratio=" + ratio);
+                Log.d(TAG, "onCardDragging: d=" + direction.name() + " ratio=" + ratio);
 
             }
 
 
             @Override
             public void onCardSwiped(Direction direction) {
-                Log.d(TAG, "onCardSwipe: p=" + manager.getTopPosition() +" d=" + direction);
-                if(direction == Direction.Right){
-                    ItemModel selectedDish = items.get(manager.getTopPosition()-1);
+                Log.d(TAG, "onCardSwipe: p=" + manager.getTopPosition() + " d=" + direction);
+                if (direction == Direction.Right) {
+                    ItemModel selectedDish = items.get(manager.getTopPosition() - 1);
 
                     Toast.makeText(FindingMatchActivity.this, selectedDish.getName(), Toast.LENGTH_SHORT).show();
 
                 }
-                if(direction == Direction.Left){
+                if (direction == Direction.Left) {
                     Toast.makeText(FindingMatchActivity.this, "Pass", Toast.LENGTH_SHORT).show();
                 }
 
                 //Paginating
-                if(manager.getTopPosition() == adapter.getItemCount() - 5){
+                if (manager.getTopPosition() == adapter.getItemCount() - 5) {
                     paginate();
                 }
             }
@@ -133,13 +123,13 @@ public class FindingMatchActivity extends AppCompatActivity {
             @Override
             public void onCardAppeared(View view, int position) {
                 TextView textView = view.findViewById(R.id.item_name);
-                Log.d(TAG, "onCardAppeared" + position +", name: "+ textView.getText());
+                Log.d(TAG, "onCardAppeared" + position + ", name: " + textView.getText());
             }
 
             @Override
             public void onCardDisappeared(View view, int position) {
                 TextView textView = view.findViewById(R.id.item_name);
-                Log.d(TAG, "onCardAppeared" + position +", name: "+ textView.getText());
+                Log.d(TAG, "onCardAppeared" + position + ", name: " + textView.getText());
             }
         });
         manager.setStackFrom(StackFrom.None);
@@ -166,33 +156,13 @@ public class FindingMatchActivity extends AppCompatActivity {
         result.dispatchUpdatesTo(adapter);
     }
 
-
     private List<ItemModel> addList(List<Dish> dishesImgs) {
         items = new ArrayList<ItemModel>();
-        for(Dish dish : dishesImgs){
+        for (Dish dish : dishesImgs) {
             Log.e("dish picture", dish.getImageAcessToken());
-            items.add(new ItemModel(dish.getImageAcessToken(),dish.getName(), restaurant.getRestaurantAddress(), dish.getDishID()));
+            items.add(new ItemModel(dish.getImageAcessToken(), dish.getName(), restaurant.getRestaurantAddress(), dish.getDishID()));
         }
-
-
-
         return items;
     }
 
-
 }
-/*
-        items.add(new ItemModel(
-        items.add(new ItemModel(R.drawable.beef_wellington,"Beef Wellington", "1500 Yonge Street"));
-        items.add(new ItemModel(R.drawable.grilled_lobster,"Grilled Lobster", "2639 Eglinton East Ave"));
-        items.add(new ItemModel(R.drawable.hamburger,"Hamburger", "789 This Road"));
-        items.add(new ItemModel(R.drawable.macaroons,"Macaroons", "2904 Dundas Street West"));
-        items.add(new ItemModel(R.drawable.makisushi,"Maki Sushi", "1890 College Street"));
-        items.add(new ItemModel(R.drawable.fried_chicken,"Fried Drumstick Chicken", " 883 That Road"));
-
-        items.add(new ItemModel(R.drawable.beef_wellington,"Beef Wellington", "1500 Yonge Street"));
-        items.add(new ItemModel(R.drawable.grilled_lobster,"Grilled Lobster", "2639 Eglinton East Ave"));
-        items.add(new ItemModel(R.drawable.hamburger,"Hamburger", "789 This Road"));
-        items.add(new ItemModel(R.drawable.macaroons,"Macaroons", "2904 Dundas Street West"));
-        items.add(new ItemModel(R.drawable.makisushi,"Maki Sushi", "1890 College Street"));
-        items.add(new ItemModel(R.drawable.fried_chicken,"Fried Drumstick Chicken", " 883 That Road"));*/

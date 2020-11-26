@@ -78,8 +78,11 @@ public class CreateRestaurantActivity extends AppCompatActivity {
 
         View root = viewPager.getRootView();
 
-        edit.setOnClickListener(v ->
-                editButtonClicked());
+        edit.setOnClickListener(v ->{
+                clicked = !clicked;
+                editButtonClicked();
+                });
+
 
 
         editMenu.setOnClickListener(v -> {
@@ -135,9 +138,6 @@ public class CreateRestaurantActivity extends AppCompatActivity {
 
         editRestaurant.setEnabled(clicked);
         editMenu.setEnabled(clicked);
-
-        this.clicked = !clicked;
-
     }
 
 

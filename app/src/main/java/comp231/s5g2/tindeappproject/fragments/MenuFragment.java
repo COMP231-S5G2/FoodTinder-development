@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,6 @@ import java.util.List;
 
 import comp231.s5g2.tindeappproject.R;
 import comp231.s5g2.tindeappproject.activity.AddDishesActivity;
-import comp231.s5g2.tindeappproject.activity.CreateRestaurantActivity;
 import comp231.s5g2.tindeappproject.adapter.AdapterListDishes;
 import comp231.s5g2.tindeappproject.models.Dish;
 import comp231.s5g2.tindeappproject.models.Owner;
@@ -62,14 +62,12 @@ public class MenuFragment extends Fragment {
     private AdapterListDishes adapter;
 
     private Button addDishActivity;
-
+    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
-            owner.setOwnerID("3");
 
 
         }
@@ -79,25 +77,37 @@ public class MenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        owner.setOwnerID("3");
 
-        DatabaseReference refDishes = myRef.child(owner.getOwnerID()).child("restaurants");
-            View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
-            addDishActivity = view.findViewById(R.id.buttonAddDish);
-            recyclerViewDishes = view.findViewById(R.id.RecyclerViewDishes);
+
+
+        DatabaseReference refDishes = myRef.child(owner.getOwnerID());
+        View view = inflater.inflate(R.layout.fragment_menu, container, false);
+
+        addDishActivity = view.findViewById(R.id.buttonAddDish);
+        recyclerViewDishes = view.findViewById(R.id.RecyclerViewDishes);
 
         refDishes.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 if (snapshot.exists()) {
 
-                    restaurant = snapshot.getValue(Restaurant.class);
+                    owner = snapshot.getValue(Owner.class);
+                    restaurant = owner.getRestaurant();
                     listDish = restaurant.getDishes();
-                    addDishActivity.setVisibility(View.INVISIBLE);
-                    if (listDish == null){
-                        addDishActivity.setVisibility(View.VISIBLE);
+                    Log.e("Size ", ""+listDish.size());
+                    if (listDish.size() > 0) {
+                        addDishActivity.setVisibility(View.INVISIBLE);
+                        adapter = new AdapterListDishes(listDish);
+                        recyclerViewDishes.setAdapter(adapter);
+
+
                     }
                 }
+                recyclerViewDishes.setHasFixedSize(true);
+                recyclerViewDishes.setLayoutManager(layoutManager);
             }
 
             @Override
@@ -108,12 +118,7 @@ public class MenuFragment extends Fragment {
         });
 
 
-        adapter = new AdapterListDishes(getContext(), listDish);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
 
-        recyclerViewDishes.setHasFixedSize(true);
-        recyclerViewDishes.setLayoutManager(layoutManager);
-        recyclerViewDishes.setAdapter(adapter);
 
         addDishActivity.setOnClickListener(new View.OnClickListener() {
             @Override

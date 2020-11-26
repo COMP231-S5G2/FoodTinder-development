@@ -1,4 +1,4 @@
-package comp231.s5g2.tindeappproject.activity;
+package comp231.s5g2.tindeappproject.interfaces;
 
 import androidx.recyclerview.widget.DiffUtil;
 

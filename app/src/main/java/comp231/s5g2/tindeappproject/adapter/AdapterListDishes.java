@@ -25,12 +25,11 @@ import comp231.s5g2.tindeappproject.models.Dish;
 
 public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.MyViewHolder> {
 
-   List<Dish> dishList = new ArrayList<>();
-    Context context;
+    List<Dish> dishList = new ArrayList<>();
 
-    public AdapterListDishes(Context context, List<Dish> dishModel) {
 
-        this.context = context;
+    public AdapterListDishes( List<Dish> dishModel) {
+
         this.dishList = dishModel;
 
     }
@@ -39,60 +38,24 @@ public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.My
     public AdapterListDishes() {
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView dishName;
-        TextView dishDescription;
-        TextView dishPrice;
-        ImageView dishImage;
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
+        View dishListView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.adapter_dish_list, parent, false);
+        return new MyViewHolder(dishListView);
 
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            dishName = itemView.findViewById(R.id.dishNameText);
-            dishDescription = itemView.findViewById(R.id.dishDescriptionText);
-            dishPrice = itemView.findViewById(R.id.priceText);
-            dishImage = itemView.findViewById(R.id.dishImageAdapter);
-
-        }
     }
 
+    @SuppressLint("CheckResult")
+    @Override
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        @NonNull
-        @Override
-        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-            View dishList = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.adapter_dish_list, parent, false);
-
-            return new MyViewHolder(dishList);
-
-        }
-
-        @SuppressLint("CheckResult")
-        @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-            Dish dish = dishList.get(position);
-
-           //MyViewHolder myViewHolder = (MyViewHolder) holder;
-            holder.dishName.setText(dish.getName());
-            holder.dishDescription.setText(dish.getDescription());
-
-            Log.e("Adapter", "Inside adapter"+dish.getDishID());
-
-            RequestOptions requestOptions = new RequestOptions();
-            requestOptions.placeholder(R.drawable.ic_baseline_add_photo_alternate_24);
-            requestOptions.error(R.drawable.ic_baseline_error_outline_24);
-
-            StorageReference strPicRef = FirebaseStorage.getInstance().getReference();
-            strPicRef.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(context)
-                    .load(dish.getImageAcessToken())
-                    .apply(requestOptions)
-                    .into(holder.dishImage));
-        }
+        holder.setData(dishList.get(position));
+    }
 
 
     @Override
@@ -100,6 +63,43 @@ public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.My
 
         return dishList.size();
     }
-}
+
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+
+        TextView dishName;
+        TextView dishDescription;
+        TextView dishPrice;
+        ImageView dishImage;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            dishName = itemView.findViewById(R.id.dishNameText);
+            dishDescription = itemView.findViewById(R.id.dishDescriptionText);
+            dishPrice = itemView.findViewById(R.id.priceText);
+            dishImage = itemView.findViewById(R.id.dishImageAdapter);
+        }
+
+        @SuppressLint("SetTextI18n")
+        void setData(Dish dish) {
+
+            String uri = "gs://tinderappproject-59233.appspot.com"+dish.getImageAcessToken();
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            // Create a reference to a file from a Google Cloud Storage URI
+            StorageReference gsReference = storage.getReferenceFromUrl(uri);
+            Glide.with(dishImage.getContext())
+                    .load(gsReference)
+                    .into(dishImage);
+
+            dishName.setText(dish.getName());
+            dishDescription.setText(dish.getDescription());
+            dishPrice.setText("$"+dish.getPrice().toString());
+        }
+
+
+        }
+
+    }
 
 
