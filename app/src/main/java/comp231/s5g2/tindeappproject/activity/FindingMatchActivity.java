@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,10 +46,16 @@ public class FindingMatchActivity extends AppCompatActivity {
     Restaurant restaurant = new Restaurant();
     private ArrayList<ItemModel> items;
 
+    //layout Food Restrictions
+    private TextView resHalala, resNuts, resVegan, resVegatarian, resPetSafe;
+    private LinearLayout layoutFoodRestriction, layoutRadius;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finding_match_activity);
+
+        init();
 
         //Id to the restaurant on the view should go here V
         owner.setOwnerID("3");
@@ -69,7 +76,6 @@ public class FindingMatchActivity extends AppCompatActivity {
                         adapter = new CardStackAdapter(addList(dishesList));
                         cardStackView.setAdapter(adapter);
                     }
-
                 }
             }
 
@@ -90,14 +96,15 @@ public class FindingMatchActivity extends AppCompatActivity {
 
             }
 
-
             @Override
             public void onCardSwiped(Direction direction) {
                 Log.d(TAG, "onCardSwipe: p=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right) {
                     ItemModel selectedDish = items.get(manager.getTopPosition() - 1);
 
+                    //TODO: Kristine- Create AleertDialog when user swipe right "You found a match should be shown before showing the restaurant information"
                     Toast.makeText(FindingMatchActivity.this, selectedDish.getName(), Toast.LENGTH_SHORT).show();
+
 
                 }
                 if (direction == Direction.Left) {
@@ -145,6 +152,21 @@ public class FindingMatchActivity extends AppCompatActivity {
         cardStackView.setLayoutManager(manager);
         //cardStackView.setAdapter(adapter);
         cardStackView.setItemAnimator(new DefaultItemAnimator());
+
+    }// end onCreate
+
+    private void init() {
+
+        //TextView from item_card.xml
+        resHalala = findViewById(R.id.item_res_halal);
+        resNuts = findViewById(R.id.item_res_nuts);
+        resVegan = findViewById(R.id.item_res_vegan);
+        resVegatarian = findViewById(R.id.item_res_vegatarian);
+        resPetSafe = findViewById(R.id.item_res_petSafe);
+
+        //LinearLayout from item_card.xml
+        layoutFoodRestriction = findViewById(R.id.layout_foodRestriction);
+        layoutRadius = findViewById(R.id.layout_radius);
     }
 
     private void paginate() {
