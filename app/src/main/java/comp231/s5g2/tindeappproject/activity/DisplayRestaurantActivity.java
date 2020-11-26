@@ -1,8 +1,10 @@
 package comp231.s5g2.tindeappproject.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -119,7 +121,12 @@ DisplayRestaurantActivity extends AppCompatActivity {
             }
         });
 
-
+        restaurantPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                redirectPhone(restaurantPhone.getText().toString());
+            }
+        });
 
 
 
@@ -164,6 +171,12 @@ DisplayRestaurantActivity extends AppCompatActivity {
                     .into(profilePic);
         });
 
+    }
+
+    private void redirectPhone(String text){
+        Intent i = new Intent(Intent.ACTION_DIAL);
+        i.setData(Uri.parse(text));
+        startActivity(i);
     }
 }
 
