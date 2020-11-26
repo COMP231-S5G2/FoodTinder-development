@@ -11,43 +11,47 @@ import comp231.s5g2.tindeappproject.R;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private Button btnAddDishes, btnFindingMatch, btnGroupRoom;
+    private Button btnAddDishes, btnFindingMatch, btnGroupRoom,btnTbc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //layout controls
-        init();
+
+        btnAddDishes = findViewById(R.id.btnAddDishesActivity);
+        btnFindingMatch = findViewById(R.id.btnFindingMatchActivity);
+        btnGroupRoom = findViewById(R.id.btnCreateGroupRoom);
+        btnTbc = findViewById(R.id.btnTbc);
+
 
         //button methods
         btnAddDishes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),CreateRestaurantActivity.class));
+                startActivity(new Intent(getApplicationContext(), CreateRestaurantActivity.class));
             }
         });
 
         btnFindingMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),FindingMatchHomeActivity.class));
+                startActivity(new Intent(getApplicationContext(), FindingMatchHomeActivity.class));
             }
         });
 
         btnGroupRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MainGroupRoomActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainGroupRoomActivity.class));
             }
         });
 
-    }
-
-    private void init() {
-        btnAddDishes = findViewById(R.id.btnAddDishesActivity);
-        btnFindingMatch = findViewById(R.id.btnFindingMatchActivity);
-        btnGroupRoom = findViewById(R.id.btnCreateGroupRoom);
+        btnTbc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), DisplayRestaurantActivity.class));
+            }
+        });
     }
 }
