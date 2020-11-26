@@ -68,27 +68,27 @@ public class FindingMatchActivity extends AppCompatActivity {
         DatabaseReference ownerRef = dbRef.child("Restaurants")
                 .child(owner.getOwnerID());
 
-
+        CardStackView cardStackView = findViewById(R.id.card_stack_view);
         ownerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot != null){
+                if (snapshot != null) {
                     Log.e("owner ref", "in Dishes");
                     owner = snapshot.getValue(Owner.class);
                     restaurant = owner.getRestaurant();
                     dishesList = restaurant.getDishes();
+                    if (dishesList.size() > 0) {
+                        for (Dish dish : dishesList) {
+                            Log.d("Dishes : ", "" + dish.getName());
 
-                    for (Dish dish: dishesList)
-                    {
-                        Log.d("Dishes : ",""+ dish.getName());
-
+                        }
+                        addList(dishesList);
+                        adapter = new CardStackAdapter(addList(dishesList));
+                        cardStackView.setAdapter(adapter);
                     }
-                    addList(dishesList);
 
-                    }
                 }
-
-
+            }
 
 
             @Override
@@ -97,10 +97,8 @@ public class FindingMatchActivity extends AppCompatActivity {
             }
         });
 
-        CardStackView cardStackView = findViewById(R.id.card_stack_view);
+
         manager = new CardStackLayoutManager(this, new CardStackListener() {
-
-
 
             @Override
             public void onCardDragging(Direction direction, float ratio) {
@@ -157,9 +155,9 @@ public class FindingMatchActivity extends AppCompatActivity {
         manager.setCanScrollHorizontal(true);
         manager.setSwipeableMethod(SwipeableMethod.Manual);
         manager.setOverlayInterpolator(new LinearInterpolator());
-        adapter = new CardStackAdapter(addList(dishesList));
+        //adapter = new CardStackAdapter(addList(dishesList));
         cardStackView.setLayoutManager(manager);
-        cardStackView.setAdapter(adapter);
+        //cardStackView.setAdapter(adapter);
         cardStackView.setItemAnimator(new DefaultItemAnimator());
     }
 
@@ -174,11 +172,10 @@ public class FindingMatchActivity extends AppCompatActivity {
 
 
     private List<ItemModel> addList(List<Dish> dishesImgs) {
+        items = new ArrayList<ItemModel>();
         for(Dish dish : dishesImgs){
             items.add(new ItemModel(dish.getImageAcessToken(),dish.getName(), restaurant.getRestaurantAddress()));
         }
-
-
 
         return items;
     }

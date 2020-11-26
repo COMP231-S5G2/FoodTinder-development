@@ -262,14 +262,13 @@
 
     <Button
         android:id="@+id/btnStartFoodMatch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="165dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_marginTop="150dp"
         android:background="@drawable/btn_start_match"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/group_font_color"
-        android:text="start food match"/>
+        android:text="start food match"
+        android:textColor="@color/group_font_color" />
 
 
 </LinearLayout>

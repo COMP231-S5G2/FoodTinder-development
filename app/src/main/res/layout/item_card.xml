@@ -33,7 +33,6 @@
             android:textColor="@android:color/white"
             android:textSize="26sp"/>
 
-
         <TextView
             android:id="@+id/item_location"
             android:layout_width="wrap_content"
@@ -41,6 +40,84 @@
             android:textStyle="bold"
             android:textColor="@android:color/white"
             android:textSize="20sp"/>
+
+        <LinearLayout
+            android:id="@+id/layout_radius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:srcCompat="@drawable/ic_location_pin" />
+
+            <TextView
+                android:id="@+id/radius"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:text="radius here..."/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_foodRestriction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/item_res_halal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:text="Halal"/>
+
+            <TextView
+                android:id="@+id/item_res_nuts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:text="Nuts"/>
+
+            <TextView
+                android:id="@+id/item_res_vegan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:text="Vegan"/>
+
+            <TextView
+                android:id="@+id/item_res_vegatarian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:text="Vegetarian"/>
+
+            <TextView
+                android:id="@+id/item_res_petSafe"
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Pet Safe"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
     <FrameLayout
@@ -54,6 +131,14 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_forward_black_24dp"
             android:layout_gravity="center"/>
+
+        <FrameLayout
+            android:id="@+id/bottom_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/overlay_black">
+
+        </FrameLayout>
 
     </FrameLayout>
 
@@ -74,15 +159,7 @@
     <FrameLayout
         android:id="@+id/top_overlay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/overlay_black">
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/bottom_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="719dp"
         android:background="@drawable/overlay_black">
 
     </FrameLayout>

@@ -16,7 +16,9 @@ public class FindingMatchHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finding_match_home);
+
         Toast.makeText(this, "Swipe right to find food match.", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Swipe left to go back home.", Toast.LENGTH_LONG).show();
     }
 
     //Method for swiping right to take user in next activity
@@ -31,12 +33,11 @@ public class FindingMatchHomeActivity extends AppCompatActivity {
                 y2 = touchEvent.getY();
                 //swipe right
                 if (x1 > x2) {
-                    //Intent myIntent = new Intent(FindingMatchHomeActivity.this, UploadImageActivity.class);
-                    //startActivity(myIntent);
-                } else //TODO swipe left to upload image activity
+                    startActivity(new Intent(getApplicationContext(),FindingMatchActivity.class));
+
+                } else // swipe left to the main menu
                 {
-                    //Intent myIntent = new Intent(FindingMatchHomeActivity.this, UploadImageActivity.class);
-                    //startActivity(myIntent);
+                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                 }
                 break;
 

@@ -22,7 +22,10 @@ package="comp231.s5g2.tindeappproject">
 
         <!--Finding Match Activities-->
         <activity android:name=".activity.FindingMatchHomeActivity" />
-        <activity android:name=".activity.FindingMatchActivity" />
+        <activity android:name=".activity.FindingMatchActivity"
+            android:label="Main Menu"
+            android:parentActivityName=".activity.FindingMatchHomeActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"/>
 
         <!--Group Room Activities-->
         <activity android:name=".activity.MainGroupRoomActivity" />

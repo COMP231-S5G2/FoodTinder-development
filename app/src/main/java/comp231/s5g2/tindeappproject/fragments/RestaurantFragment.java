@@ -115,7 +115,6 @@ public class RestaurantFragment extends Fragment implements IEditRestaurant {
         });
 
 
-
         editTextRestName = view.findViewById(R.id.editTextRestaurantName);
         editTextPhoneNumber = view.findViewById(R.id.editTextPhone);
         editTextWebsite = view.findViewById(R.id.editTextTextWebsite);
@@ -223,8 +222,6 @@ public class RestaurantFragment extends Fragment implements IEditRestaurant {
 
             }
         });
-
-
 
 
     }
