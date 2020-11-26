@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
@@ -56,6 +58,10 @@ public class FindingMatchActivity extends AppCompatActivity {
 
     List<String> imageURIList = new ArrayList<String>();
     private ArrayList<ItemModel> items;
+
+    //declared food information from item_card
+    private TextView tvRadius, tvHalal, tvNuts, tvVegan, tvVegetarian, tvPetSafe;
+    private LinearLayout layoutRadius, layoutFoodRestriction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +111,6 @@ public class FindingMatchActivity extends AppCompatActivity {
                 Log.d(TAG, "onCardDragging: d=" + direction.name() +" ratio=" + ratio);
 
             }
-
 
             @Override
             public void onCardSwiped(Direction direction) {
