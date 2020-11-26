@@ -102,7 +102,7 @@ public class FindingMatchActivity extends AppCompatActivity {
                 if (direction == Direction.Right) {
                     ItemModel selectedDish = items.get(manager.getTopPosition() - 1);
 
-                    //TODO: Kristine- Create AleertDialog when user swipe right "You found a match should be shown before showing the restaurant information"
+                    //TODO: Kristine- Create AlertDialog when user swipe right "You found a match should be shown before showing the restaurant information"
                     Toast.makeText(FindingMatchActivity.this, selectedDish.getName(), Toast.LENGTH_SHORT).show();
 
 
