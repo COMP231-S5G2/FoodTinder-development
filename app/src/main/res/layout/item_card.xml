@@ -69,50 +69,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/item_res_halal"
+            <RadioGroup
+                android:id="@+id/selectedRadio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:text="Halal"/>
-
-            <TextView
-                android:id="@+id/item_res_nuts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:text="Nuts"/>
-
-            <TextView
-                android:id="@+id/item_res_vegan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:text="Vegan"/>
-
-            <TextView
-                android:id="@+id/item_res_vegatarian"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:text="Vegetarian"/>
-
-            <TextView
-                android:id="@+id/item_res_petSafe"
-                android:layout_width="136dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="Pet Safe"
-                android:textColor="@android:color/white"
-                android:textSize="15sp" />
+                android:textSize="5dp"
+                android:gravity="center"
+                android:orientation="vertical"></RadioGroup>
 
         </LinearLayout>
 

@@ -40,6 +40,8 @@ import comp231.s5g2.tindeappproject.models.Owner;
 import comp231.s5g2.tindeappproject.models.Restaurant;
 
 public class FindingMatchActivity extends AppCompatActivity {
+
+    ArrayList<String> recievedIntent;
     private static final String TAG = "FindingMatchHome";
     private CardStackAdapter adapter;
     private CardStackLayoutManager manager;
@@ -48,17 +50,17 @@ public class FindingMatchActivity extends AppCompatActivity {
     List<Dish> dishesList = new ArrayList<>();
     Restaurant restaurant = new Restaurant();
     private ArrayList<ItemModel> items;
-    private RadioGroup radioGroup;
+    RadioGroup radioGroup;
 
 
     //layout Food Restrictions
-    private TextView resHalala, resNuts, resVegan, resVegatarian, resPetSafe;
     private LinearLayout layoutFoodRestriction, layoutRadius;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finding_match_activity);
+
 
         init();
 
@@ -161,13 +163,6 @@ public class FindingMatchActivity extends AppCompatActivity {
     }// end onCreate
 
     private void init() {
-
-        //TextView from item_card.xml
-        resHalala = findViewById(R.id.item_res_halal);
-        resNuts = findViewById(R.id.item_res_nuts);
-        resVegan = findViewById(R.id.item_res_vegan);
-        resVegatarian = findViewById(R.id.item_res_vegatarian);
-        resPetSafe = findViewById(R.id.item_res_petSafe);
 
         //LinearLayout from item_card.xml
         layoutFoodRestriction = findViewById(R.id.layout_foodRestriction);

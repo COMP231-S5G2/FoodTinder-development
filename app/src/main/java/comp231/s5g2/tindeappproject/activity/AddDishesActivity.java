@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Options;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,6 +44,7 @@ public class AddDishesActivity extends AppCompatActivity {
 
 
     private List<Dish> dishList = new ArrayList<>();
+    ArrayList<String> Options = new ArrayList<>();
 
     public Uri imgUri;
     StorageReference storageRef;
@@ -125,11 +127,42 @@ public class AddDishesActivity extends AppCompatActivity {
                 dish.setName(dishName.getText().toString().trim());
                 dish.setPrice(Double.parseDouble(dishPrice.getText().toString().trim()));
 
-                dish.setHalal(halal.isChecked());
-                dish.setNutsFree(nutsFree.isChecked());
-                dish.setPetSafe(petSafe.isChecked());
-                dish.setVegan(vegan.isChecked());
-                dish.setVegetarian(vegetarian.isChecked());
+                halal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(((RadioButton)v).isChecked())
+                            Options.add("halal");
+                    }
+                });
+                nutsFree.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(((RadioButton)v).isChecked())
+                            Options.add("nutsFree");
+                    }
+                });
+
+                halal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(((RadioButton)v).isChecked())
+                            Options.add("petsafe");
+                    }
+                });
+                halal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(((RadioButton)v).isChecked())
+                            Options.add("Vegan");
+                    }
+                });
+                halal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(((RadioButton)v).isChecked())
+                            Options.add("Vegeterian");
+                    }
+                });
                 Uploader(owner);
 
             }
