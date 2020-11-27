@@ -17,8 +17,7 @@ public class FindingMatchHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finding_match_home);
 
-        Toast.makeText(this, "Swipe right to find food match.", Toast.LENGTH_LONG).show();
-        Toast.makeText(this, "Swipe left to go back home.", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Swipe left to go back home.", Toast.LENGTH_SHORT).show();
     }
 
     //Method for swiping right to take user in next activity

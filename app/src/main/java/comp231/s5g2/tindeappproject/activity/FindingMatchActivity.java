@@ -1,6 +1,7 @@
 package comp231.s5g2.tindeappproject.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -50,12 +51,16 @@ public class FindingMatchActivity extends AppCompatActivity {
     private TextView resHalala, resNuts, resVegan, resVegatarian, resPetSafe;
     private LinearLayout layoutFoodRestriction, layoutRadius;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finding_match_activity);
 
         init();
+
+        //loading dialog
+        final CustomAlertDialog customAlertDialog = new CustomAlertDialog(FindingMatchActivity.this);
 
         //Id to the restaurant on the view should go here V
         owner.setOwnerID("3");
@@ -101,12 +106,20 @@ public class FindingMatchActivity extends AppCompatActivity {
                 Log.d(TAG, "onCardSwipe: p=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right) {
                     ItemModel selectedDish = items.get(manager.getTopPosition() - 1);
-
-                    //TODO: Kristine- Create AleertDialog when user swipe right "You found a match should be shown before showing the restaurant information"
                     Toast.makeText(FindingMatchActivity.this, selectedDish.getName(), Toast.LENGTH_SHORT).show();
 
-
+                    customAlertDialog.startLoading();
+                    //dismissed alert dialog after 5 secs
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            customAlertDialog.dismissDialog();
+                        }
+                    },5000);
+                    //load restaurant information here..
                 }
+
                 if (direction == Direction.Left) {
                     Toast.makeText(FindingMatchActivity.this, "Pass", Toast.LENGTH_SHORT).show();
                 }
@@ -167,6 +180,9 @@ public class FindingMatchActivity extends AppCompatActivity {
         //LinearLayout from item_card.xml
         layoutFoodRestriction = findViewById(R.id.layout_foodRestriction);
         layoutRadius = findViewById(R.id.layout_radius);
+
+
+
     }
 
     private void paginate() {
