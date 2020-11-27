@@ -33,11 +33,11 @@ public class FindingMatchHomeActivity extends AppCompatActivity {
                 y2 = touchEvent.getY();
                 //swipe right
                 if (x1 > x2) {
-                    startActivity(new Intent(getApplicationContext(),FindingMatchActivity.class));
+                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
 
                 } else // swipe left to the main menu
                 {
-                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                    startActivity(new Intent(getApplicationContext(),FindingMatchActivity.class));
                 }
                 break;
 
