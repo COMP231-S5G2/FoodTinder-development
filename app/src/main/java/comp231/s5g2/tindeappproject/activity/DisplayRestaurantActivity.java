@@ -175,7 +175,7 @@ DisplayRestaurantActivity extends AppCompatActivity {
 
     private void redirectPhone(String text){
         Intent i = new Intent(Intent.ACTION_DIAL);
-        i.setData(Uri.parse(text));
+        i.setData(Uri.parse("tel: " + text));
         startActivity(i);
     }
 }
