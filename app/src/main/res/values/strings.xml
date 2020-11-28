@@ -8,4 +8,5 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="editLabel">Edit</string>
+    <string name="restaurantSite">Restaurant Website</string>
 </resources>

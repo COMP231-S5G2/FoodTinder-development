@@ -39,7 +39,7 @@ DisplayRestaurantActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Restaurants");
-    private TextView restaurantPhone, restaurantName;
+    private TextView restaurantPhone, restaurantName, restaurantWebsite;
     private ImageView profilePic;
     Owner owner = new Owner();
     String restaurantImg;
@@ -79,6 +79,7 @@ DisplayRestaurantActivity extends AppCompatActivity {
        //listDishes = findViewById(R.id.RecyclerViewDishes);
         restaurantName = findViewById(R.id.restaurantName);
         restaurantPhone = findViewById(R.id.restaurantPhone);
+        restaurantWebsite = findViewById(R.id.restaurantWebsite);
         recyclerViewDishes = findViewById(R.id.recyclerView);
 
 
@@ -93,6 +94,7 @@ DisplayRestaurantActivity extends AppCompatActivity {
                     restaurant = owner.getRestaurant();
                     restaurantName.setText(restaurant.getRestaurantName());
                     restaurantPhone.setText(restaurant.getRestaurantPhone());
+                    restaurantWebsite.setText(restaurant.getWebSite());
                     dishes = restaurant.getDishes();
                     restaurantImg = restaurant.getPictureToken();
                     if (dishes.size() > 0) {
