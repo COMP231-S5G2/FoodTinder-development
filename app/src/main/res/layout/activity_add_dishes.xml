@@ -94,66 +94,42 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextDishName"
         android:importantForAutofill="no" />
 
+
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="52dp"
         android:text="Enter the restrictions:"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
-    <RadioButton
-        android:id="@+id/rbHalal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_weight="1"
-        android:text="Halal"
-        app:layout_constraintBottom_toTopOf="@+id/rbNutsFree"
+    <EditText
+        android:id="@+id/editRectriction"
+        android:layout_width="180dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="352dp"
+        android:ems="10"
+        android:hint="Enter the Restrictions of food"
+        android:textSize="13dp"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioButton
-        android:id="@+id/rbNutsFree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Nuts free"
-        app:layout_constraintBottom_toTopOf="@+id/rbVegan"
-        app:layout_constraintStart_toStartOf="@+id/rbHalal"
-        app:layout_constraintTop_toBottomOf="@+id/rbHalal" />
-
-    <RadioButton
-        android:id="@+id/rbVegan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Vegan"
-        app:layout_constraintBottom_toTopOf="@+id/rbVegetarian"
-        app:layout_constraintStart_toStartOf="@+id/rbNutsFree"
-        app:layout_constraintTop_toBottomOf="@+id/rbNutsFree" />
-
-    <RadioButton
-        android:id="@+id/rbVegetarian"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Vegetarian"
-        app:layout_constraintBottom_toTopOf="@+id/PetSafe"
-        app:layout_constraintStart_toStartOf="@+id/rbVegan"
-        app:layout_constraintTop_toBottomOf="@+id/rbVegan" />
-
-    <RadioButton
-        android:id="@+id/PetSafe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Pet safe"
-        app:layout_constraintBottom_toTopOf="@+id/guideline11"
-        app:layout_constraintStart_toStartOf="@+id/rbVegetarian"
-        app:layout_constraintTop_toBottomOf="@+id/rbVegetarian" />
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="188dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="152dp"
+        android:text="(Halal,petSafe,NutsFree,Vegan,Vegeterian)"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
     <ImageView
         android:id="@+id/imageView4"

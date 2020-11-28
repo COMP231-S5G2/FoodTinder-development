@@ -45,12 +45,14 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
 
     class ViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
-        TextView name, location;
+        TextView name, location, restriction;
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.item_image);
             name = itemView.findViewById(R.id.item_name);
             location = itemView.findViewById(R.id.item_location);
+            restriction = itemView.findViewById(R.id.item_restriction);
+
         }
 
         void setData(ItemModel data) {
@@ -64,6 +66,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
                     .into(image);
 
             name.setText(data.getName());
+            restriction.setText(data.getRestriction());
         }
     }
 

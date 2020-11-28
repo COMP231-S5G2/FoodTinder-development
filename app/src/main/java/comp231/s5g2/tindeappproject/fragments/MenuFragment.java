@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -46,7 +47,7 @@ public class MenuFragment extends Fragment {
 
     private EditText dishName, dishDescription;
     private ImageView dishImage;
-    private RadioButton petSafe, vegan, vegetarian, nutsFree, halal;
+    private CheckBox petSafe, vegan, vegetarian, nutsFree, halal;
     private Button createDish;
 
     private Owner owner = new Owner();
@@ -78,9 +79,6 @@ public class MenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         owner.setOwnerID("3");
-
-
-
 
         DatabaseReference refDishes = myRef.child(owner.getOwnerID());
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
