@@ -3,6 +3,7 @@ package comp231.s5g2.tindeappproject.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -130,6 +131,8 @@ DisplayRestaurantActivity extends AppCompatActivity {
             }
         });
 
+        restaurantWebsite.setMovementMethod(LinkMovementMethod.getInstance());
+
 
 
 
@@ -180,5 +183,10 @@ DisplayRestaurantActivity extends AppCompatActivity {
         i.setData(Uri.parse("tel: " + text));
         startActivity(i);
     }
+
+    /*private void redirectWebsite(String text){
+        Intent i = new Intent("android.intent.action.VIEW", Uri.parse(text));
+        startActivity(i);
+    }*/
 }
 
