@@ -5,16 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/light_red_bg">
+    android:background="@color/light_red_bg"
+    android:gravity="center">
 
-    <ImageView
-        android:layout_width="353dp"
-        android:layout_height="227dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/btn_start_match"
-        android:src="@drawable/ic_group" />
+
+    <EditText
+        android:id="@+id/etRoomName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:ems="10"
+        android:hint="input name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/etRoomCode"
+        android:layout_width="223dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:ems="10"
+        android:hint="input code"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/etLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:ems="10"
+        android:hint="input location"
+        android:inputType="textPostalAddress" />
 
     <Button
         android:id="@+id/btnCreateGrp"
