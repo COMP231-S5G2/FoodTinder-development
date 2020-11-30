@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -44,13 +45,13 @@ public class AddDishesActivity extends AppCompatActivity {
 
     private List<Dish> dishList = new ArrayList<>();
 
+
     public Uri imgUri;
     StorageReference storageRef;
     private StorageTask uploadTask;
 
-    private EditText dishName, dishDescription, dishPrice;
+    private EditText dishName, dishDescription, dishPrice, dishRestriction;
     private ImageView dishImage;
-    private RadioButton petSafe, vegan, vegetarian, nutsFree, halal;
 
     private Owner owner = new Owner();
     private Restaurant restaurant = new Restaurant();
@@ -69,15 +70,12 @@ public class AddDishesActivity extends AppCompatActivity {
         Log.e("Dishes", "Loading dishes Activity");
 
         owner.setOwnerID("3");
-        petSafe = findViewById(R.id.PetSafe);
-        vegan = findViewById(R.id.rbVegan);
-        vegetarian = findViewById(R.id.rbVegetarian);
-        nutsFree = findViewById(R.id.rbNutsFree);
-        halal = findViewById(R.id.rbHalal);
+
+
         dishImage = findViewById(R.id.imageViewDish);
         Button createDish = findViewById(R.id.createDishButton);
         dishPrice = findViewById(R.id.editTextPrice);
-
+        dishRestriction = findViewById(R.id.editRectriction);
         dishDescription = findViewById(R.id.editTextDishDescription);
         dishName = findViewById(R.id.editTextDishName);
 
@@ -124,12 +122,8 @@ public class AddDishesActivity extends AppCompatActivity {
                 dish.setDescription(dishDescription.getText().toString().trim());
                 dish.setName(dishName.getText().toString().trim());
                 dish.setPrice(Double.parseDouble(dishPrice.getText().toString().trim()));
+                dish.setRestriction(dishRestriction.getText().toString().trim());
 
-                dish.setHalal(halal.isChecked());
-                dish.setNutsFree(nutsFree.isChecked());
-                dish.setPetSafe(petSafe.isChecked());
-                dish.setVegan(vegan.isChecked());
-                dish.setVegetarian(vegetarian.isChecked());
                 Uploader(owner);
 
             }

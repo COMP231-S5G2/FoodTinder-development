@@ -151,6 +151,7 @@ public class FindingMatchActivity extends AppCompatActivity {
                 TextView textView = view.findViewById(R.id.item_name);
                 Log.d(TAG, "onCardAppeared" + position + ", name: " + textView.getText());
             }
+
         });
         manager.setStackFrom(StackFrom.None);
         manager.setVisibleCount(3);
@@ -170,12 +171,6 @@ public class FindingMatchActivity extends AppCompatActivity {
 
     private void init() {
 
-        //TextView from item_card.xml
-        resHalala = findViewById(R.id.item_res_halal);
-        resNuts = findViewById(R.id.item_res_nuts);
-        resVegan = findViewById(R.id.item_res_vegan);
-        resVegatarian = findViewById(R.id.item_res_vegatarian);
-        resPetSafe = findViewById(R.id.item_res_petSafe);
 
         //LinearLayout from item_card.xml
         layoutFoodRestriction = findViewById(R.id.layout_foodRestriction);
@@ -198,7 +193,7 @@ public class FindingMatchActivity extends AppCompatActivity {
         items = new ArrayList<ItemModel>();
         for (Dish dish : dishesImgs) {
             Log.e("dish picture", dish.getImageAcessToken());
-            items.add(new ItemModel(dish.getImageAcessToken(), dish.getName(), restaurant.getRestaurantAddress(), dish.getDishID()));
+            items.add(new ItemModel(dish.getImageAcessToken(), dish.getName(), restaurant.getRestaurantAddress(), dish.getDishID(), dish.getRestriction()));
         }
         return items;
     }

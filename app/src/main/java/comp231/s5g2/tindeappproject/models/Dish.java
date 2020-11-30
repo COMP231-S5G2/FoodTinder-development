@@ -1,18 +1,20 @@
 package comp231.s5g2.tindeappproject.models;
 
-import com.google.firebase.storage.StorageReference;
-
 public class Dish {
     private String name;
     private double price;
     private String description;
     private String imageAcessToken;
-    private boolean petSafe,vegan,vegetarian,nutsFree,halal;
     private int dishID;
-    public Dish(String nome, double price, String description) {
+    private String restriction;
+
+    public Dish(String nome, double price, String description, String restriction)
+    {
         this.name = nome;
         this.price = price;
         this.description = description;
+        this.restriction = restriction;
+
     }
 
     public int getDishID() {
@@ -21,46 +23,6 @@ public class Dish {
 
     public void setDishID(int dishID) {
         this.dishID = dishID;
-    }
-
-    public boolean isPetSafe() {
-        return petSafe;
-    }
-
-    public void setPetSafe(boolean petSafe) {
-        this.petSafe = petSafe;
-    }
-
-    public boolean isVegan() {
-        return vegan;
-    }
-
-    public void setVegan(boolean vegan) {
-        this.vegan = vegan;
-    }
-
-    public boolean isVegetarian() {
-        return vegetarian;
-    }
-
-    public void setVegetarian(boolean vegetarian) {
-        this.vegetarian = vegetarian;
-    }
-
-    public boolean isNutsFree() {
-        return nutsFree;
-    }
-
-    public void setNutsFree(boolean nutsFree) {
-        this.nutsFree = nutsFree;
-    }
-
-    public boolean isHalal() {
-        return halal;
-    }
-
-    public void setHalal(boolean halal) {
-        this.halal = halal;
     }
 
     public String getImageAcessToken() {
@@ -97,4 +59,9 @@ public class Dish {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getRestriction() {return restriction;}
+
+    public void setRestriction(String restriction) {this.restriction = restriction;}
+
 }

@@ -2,11 +2,14 @@ package comp231.s5g2.tindeappproject.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,7 +40,6 @@ public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.My
 
     public AdapterListDishes() {
     }
-
 
     @NonNull
     @Override
@@ -70,6 +72,7 @@ public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.My
         TextView dishName;
         TextView dishDescription;
         TextView dishPrice;
+        TextView dishRestriction;
         ImageView dishImage;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -78,6 +81,7 @@ public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.My
             dishDescription = itemView.findViewById(R.id.dishDescriptionText);
             dishPrice = itemView.findViewById(R.id.priceText);
             dishImage = itemView.findViewById(R.id.dishImageAdapter);
+            dishRestriction = itemView.findViewById(R.id.dishRestrictionText);
         }
 
         @SuppressLint("SetTextI18n")
@@ -95,10 +99,12 @@ public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.My
             dishName.setText(dish.getName());
             dishDescription.setText(dish.getDescription());
             dishPrice.setText("$"+dish.getPrice().toString());
+            dishRestriction.setText(dish.getRestriction());
         }
 
 
         }
+
 
     }
 
