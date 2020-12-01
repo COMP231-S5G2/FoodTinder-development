@@ -15,14 +15,14 @@ import com.google.firebase.storage.StorageReference;
 import java.util.List;
 
 import comp231.s5g2.tindeappproject.R;
-import comp231.s5g2.tindeappproject.models.ItemModel;
+import comp231.s5g2.tindeappproject.models.Dish;
 
 import com.bumptech.glide.Glide;
 
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder>{
-    private List<ItemModel> items;
+    private List<Dish> items;
 
-    public CardStackAdapter(List<ItemModel> items)
+    public CardStackAdapter(List<Dish> items)
     {
         this.items = items;
     }
@@ -56,8 +56,8 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
 
         }
 
-        void setData(ItemModel data) {
-            String uri = "gs://tinderappproject-59233.appspot.com"+data.getImage();
+        void setData(Dish data) {
+            String uri = "gs://tinderappproject-59233.appspot.com"+data.getImageAcessToken();
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
             // Create a reference to a file from a Google Cloud Storage URI
@@ -72,11 +72,11 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
     }
 
 
-    public List<ItemModel> getItems() {
+    public List<Dish> getItems() {
         return items;
     }
 
-    public void setItems(List<ItemModel> items) {
+    public void setItems(List<Dish> items) {
         this.items = items;
     }
 

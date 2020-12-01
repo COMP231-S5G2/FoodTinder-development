@@ -4,13 +4,14 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import java.util.List;
 
-import comp231.s5g2.tindeappproject.models.ItemModel;
+import comp231.s5g2.tindeappproject.models.Dish;
 
 public class CardStackCallback extends DiffUtil.Callback {
 
-    private List<ItemModel> oldList, newList;
+    private final List<Dish> oldList;
+    private final List<Dish> newList;
 
-    public CardStackCallback(List<ItemModel> oldList, List<ItemModel> newList){
+    public CardStackCallback(List<Dish> oldList, List<Dish> newList){
         this.oldList = oldList;
         this.newList = newList;
     }
@@ -27,7 +28,7 @@ public class CardStackCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldList.get(oldItemPosition).getImage() == newList.get(newItemPosition).getImage();
+        return oldList.get(oldItemPosition).getImageAcessToken().equals(newList.get(newItemPosition).getImageAcessToken());
     }
 
     @Override

@@ -35,7 +35,6 @@ import comp231.s5g2.tindeappproject.adapter.CardStackAdapter;
 import comp231.s5g2.tindeappproject.interfaces.CardStackCallback;
 import comp231.s5g2.tindeappproject.interfaces.IRestaurantData;
 import comp231.s5g2.tindeappproject.models.Dish;
-import comp231.s5g2.tindeappproject.models.ItemModel;
 import comp231.s5g2.tindeappproject.models.Owner;
 import comp231.s5g2.tindeappproject.models.Restaurant;
 
@@ -47,7 +46,7 @@ public class FindingMatchActivity extends AppCompatActivity {
     DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
     List<Dish> dishesList = new ArrayList<>();
     Restaurant restaurant = new Restaurant();
-    private ArrayList<ItemModel> items;
+    private ArrayList<Dish> items;
     private IRestaurantData listener;
 
     //layout Food Restrictions
@@ -118,8 +117,13 @@ public class FindingMatchActivity extends AppCompatActivity {
             public void onCardSwiped(Direction direction) {
                 Log.d(TAG, "onCardSwipe: p=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right) {
-                    ItemModel selectedDish = items.get(manager.getTopPosition() - 1);
+                    Dish selectedDish = dishesList.get(manager.getTopPosition() - 1);
                     Toast.makeText(FindingMatchActivity.this, selectedDish.getName(), Toast.LENGTH_SHORT).show();
+
+
+                    Intent  intent = new Intent(getApplicationContext(), DisplayRestaurantActivity.class);
+                    intent.putExtra("SelectedDish", selectedDish.getDishID());
+
 
                     customAlertDialog.startLoading();
                     //dismissed alert dialog after 5 secs
@@ -128,7 +132,7 @@ public class FindingMatchActivity extends AppCompatActivity {
 
                     //defining which restaurant was chosen
 
-                    //startActivity(new Intent(getApplicationContext(), DisplayRestaurantActivity.class));
+
                 }
 
                 if (direction == Direction.Left) {
@@ -192,19 +196,19 @@ public class FindingMatchActivity extends AppCompatActivity {
     }
 
     private void paginate() {
-        List<ItemModel> oldList = adapter.getItems();
-        List<ItemModel> newList = new ArrayList<>(addList(dishesList));
+        List<Dish> oldList = adapter.getItems();
+        List<Dish> newList = new ArrayList<>(addList(dishesList));
         CardStackCallback callback = new CardStackCallback(oldList, newList);
         DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
         adapter.setItems(newList);
         result.dispatchUpdatesTo(adapter);
     }
 
-    private List<ItemModel> addList(List<Dish> dishesImgs) {
+    private List<Dish> addList(List<Dish> dishesImgs) {
         items = new ArrayList<>();
         for (Dish dish : dishesImgs) {
             Log.e("dish picture", dish.getImageAcessToken());
-            items.add(new ItemModel(dish.getImageAcessToken(), dish.getName(), restaurant.getRestaurantAddress(), dish.getDishID(), dish.getRestriction()));
+            items.add(dish);
         }
         return items;
     }
