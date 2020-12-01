@@ -1,5 +1,6 @@
 package comp231.s5g2.tindeappproject.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -32,6 +33,7 @@ import java.util.List;
 import comp231.s5g2.tindeappproject.R;
 import comp231.s5g2.tindeappproject.adapter.CardStackAdapter;
 import comp231.s5g2.tindeappproject.interfaces.CardStackCallback;
+import comp231.s5g2.tindeappproject.interfaces.IRestaurantData;
 import comp231.s5g2.tindeappproject.models.Dish;
 import comp231.s5g2.tindeappproject.models.ItemModel;
 import comp231.s5g2.tindeappproject.models.Owner;
@@ -46,6 +48,7 @@ public class FindingMatchActivity extends AppCompatActivity {
     List<Dish> dishesList = new ArrayList<>();
     Restaurant restaurant = new Restaurant();
     private ArrayList<ItemModel> items;
+    private IRestaurantData listener;
 
     //layout Food Restrictions
     private TextView resHalala, resNuts, resVegan, resVegatarian, resPetSafe;
@@ -65,18 +68,28 @@ public class FindingMatchActivity extends AppCompatActivity {
         //Id to the restaurant on the view should go here V
         owner.setOwnerID("3");
 
-        DatabaseReference ownerRef = dbRef.child("Restaurants")
-                .child(owner.getOwnerID());
+        DatabaseReference ownerRef = dbRef.child("Restaurants");
 
         CardStackView cardStackView = findViewById(R.id.card_stack_view);
         ownerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot != null) {
-                    Log.e("owner ref", "in Dishes");
-                    owner = snapshot.getValue(Owner.class);
-                    restaurant = owner.getRestaurant();
-                    dishesList = restaurant.getDishes();
+
+                  for (DataSnapshot snap : snapshot.getChildren()) {
+                      Owner ownerDB = snap.getValue(Owner.class);
+                      //Log.e("Snp", "owner :"+ownerDB.getOwnerID());
+                      if (ownerDB != null) {
+                          if (ownerDB.getRestaurant() != null) {
+                              restaurant = ownerDB.getRestaurant();
+                              Log.e("Snp", "owner :" + ownerDB.getRestaurant().getRestaurantName());
+                              if (restaurant.getDishes().size() > 0) {
+                                  dishesList.addAll(restaurant.getDishes());
+                              }
+                          }
+                      }
+
+                  }
                     if (dishesList.size() > 0) {
                         adapter = new CardStackAdapter(addList(dishesList));
                         cardStackView.setAdapter(adapter);
@@ -111,13 +124,11 @@ public class FindingMatchActivity extends AppCompatActivity {
                     customAlertDialog.startLoading();
                     //dismissed alert dialog after 5 secs
                     Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            customAlertDialog.dismissDialog();
-                        }
-                    },5000);
-                    //load restaurant information here..
+                    handler.postDelayed(customAlertDialog::dismissDialog,5000);
+
+                    //defining which restaurant was chosen
+
+                    //startActivity(new Intent(getApplicationContext(), DisplayRestaurantActivity.class));
                 }
 
                 if (direction == Direction.Left) {
@@ -190,7 +201,7 @@ public class FindingMatchActivity extends AppCompatActivity {
     }
 
     private List<ItemModel> addList(List<Dish> dishesImgs) {
-        items = new ArrayList<ItemModel>();
+        items = new ArrayList<>();
         for (Dish dish : dishesImgs) {
             Log.e("dish picture", dish.getImageAcessToken());
             items.add(new ItemModel(dish.getImageAcessToken(), dish.getName(), restaurant.getRestaurantAddress(), dish.getDishID(), dish.getRestriction()));

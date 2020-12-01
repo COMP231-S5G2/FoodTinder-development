@@ -12,7 +12,7 @@ public class Restaurant {
     private String restaurantPhone;
     private String restaurantAddress;
     private String webSite;
-    private List<Dish> dishes = new ArrayList<Dish>();
+    private List<Dish> dishes;
     private String pictureToken;
 
 
@@ -20,6 +20,7 @@ public class Restaurant {
         this.restaurantName = restaurantName;
         this.restaurantPhone = restaurantPhone;
         this.restaurantAddress = restauranteAddress;
+        this.dishes = new ArrayList<>();
         this.dishes = dishes;
     }
 
@@ -40,6 +41,7 @@ public class Restaurant {
     }
 
     public Restaurant() {
+        dishes = new ArrayList<>();
     }
 
     public String getRestaurantName() {

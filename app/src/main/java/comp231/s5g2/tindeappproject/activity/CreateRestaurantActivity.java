@@ -43,11 +43,6 @@ public class CreateRestaurantActivity extends AppCompatActivity {
         Log.e("Restaurant", "Loading restaurant Activity");
 
 
-     /*   public void setListener(IEditRestaurant listener)
-        {
-            this.listener = listener ;
-        }*/
-
 
         labelEditMenu = findViewById(R.id.editRestaurantLabel);
         labelEditRestaurant = findViewById(R.id.editMenuLabel);
@@ -76,7 +71,6 @@ public class CreateRestaurantActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(viewPager);
 
-        View root = viewPager.getRootView();
 
         edit.setOnClickListener(v ->{
                 clicked = !clicked;
@@ -98,7 +92,7 @@ public class CreateRestaurantActivity extends AppCompatActivity {
         editRestaurant.setOnClickListener(v -> {
                     setClickable(clicked);
                     RestaurantFragment fragment = new RestaurantFragment();
-                    ((RestaurantFragment) fragment).Clickable();
+                    fragment.Clickable();
                     setVisibility(!clicked);
 
 

@@ -1,6 +1,7 @@
 package comp231.s5g2.tindeappproject.models;
 
 public class ItemModel {
+
     private String image;
     private String name, location;
     private String restriction;
