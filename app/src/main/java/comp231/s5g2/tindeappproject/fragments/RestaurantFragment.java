@@ -86,7 +86,8 @@ public class RestaurantFragment extends Fragment implements IEditRestaurant {
 
 
         owner.setRestaurant(restaurant);
-        owner.setOwnerID("3");
+        owner.setOwnerID("1");
+
 
         DatabaseReference ownerRef = myRef.child(owner.getOwnerID());
         ownerRef.addValueEventListener(new ValueEventListener() {

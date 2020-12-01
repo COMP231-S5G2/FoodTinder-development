@@ -53,6 +53,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
             location = itemView.findViewById(R.id.item_location);
             restriction = itemView.findViewById(R.id.item_restriction);
 
+
         }
 
         void setData(ItemModel data) {

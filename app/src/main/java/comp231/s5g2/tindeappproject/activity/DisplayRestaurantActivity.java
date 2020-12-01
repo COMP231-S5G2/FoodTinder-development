@@ -27,6 +27,7 @@ import com.google.firebase.storage.StorageReference;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import comp231.s5g2.tindeappproject.R;
@@ -51,6 +52,7 @@ DisplayRestaurantActivity extends AppCompatActivity {
     StorageReference dishesRef;
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
     private RecyclerView recyclerViewDishes;
+    private int matchedDishID;
 
     Restaurant restaurant = new Restaurant();
 
@@ -62,7 +64,6 @@ DisplayRestaurantActivity extends AppCompatActivity {
         Log.e("Display", "Loading display Activity");
 
         String matchedRestaurantID = "3";
-        //matchedPhotoID = "1";
 
         Button nextActivity = findViewById(R.id.buttonNextActivity);
         nextActivity.setOnClickListener(v -> {
@@ -72,12 +73,9 @@ DisplayRestaurantActivity extends AppCompatActivity {
 
        // getDishImages();
 
-
-        dishes = new ArrayList<>();
         dishesRef = restRef.child(matchedRestaurantID);
-
         profilePic = findViewById(R.id.profileImage);
-       //listDishes = findViewById(R.id.RecyclerViewDishes);
+        //listDishes = findViewById(R.id.RecyclerViewDishes);
         restaurantName = findViewById(R.id.restaurantName);
         restaurantPhone = findViewById(R.id.restaurantPhone);
         restaurantWebsite = findViewById(R.id.restaurantWebsite);
@@ -100,15 +98,13 @@ DisplayRestaurantActivity extends AppCompatActivity {
                     restaurantImg = restaurant.getPictureToken();
                     if (dishes.size() > 0) {
                         dishes = restaurant.getDishes();
-                        adapter = new AdapterListDishes(dishes);
+                        adapter = new AdapterListDishes(dishesControl(dishes,matchedDishID));
                         recyclerViewDishes.setAdapter(adapter);
                         recyclerViewDishes.setHasFixedSize(true);
                         recyclerViewDishes.setLayoutManager(layoutManager);
                     }
                     ImageViewLoader();
 
-                   /* adapter = new RestDisplayAdapter(getApplicationContext(), dishes );
-                    listView.setAdapter(adapter);*/
                 }
 
                 else {
@@ -117,6 +113,9 @@ DisplayRestaurantActivity extends AppCompatActivity {
 
                 }
             }
+
+
+
             @Override
             public void onCancelled(@NotNull DatabaseError error) {
                 // Failed to read value
@@ -124,40 +123,18 @@ DisplayRestaurantActivity extends AppCompatActivity {
             }
         });
 
-        restaurantPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                redirectPhone(restaurantPhone.getText().toString());
-            }
-        });
+        restaurantPhone.setOnClickListener(view -> redirectPhone(restaurantPhone.getText().toString()));
 
         restaurantWebsite.setMovementMethod(LinkMovementMethod.getInstance());
 
-
-
-
-        /*adapter = new AdapterListDishes(getApplicationContext(), dishes);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-
-        listDishes.setHasFixedSize(true);
-        listDishes.setLayoutManager(layoutManager);
-        listDishes.setAdapter(adapter);
-*/
     }
 
-    public void getDishImages(){
+    private List<Dish> dishesControl(List<Dish> dishes, int matchedDishID) {
 
-        //getting images
+        Collections.swap(dishes, matchedDishID, 0);
 
-        dishesRef.getDownloadUrl().addOnSuccessListener(uri -> {
-            Log.e("picDish", "success");
-            if (uri != null) {
-                Glide.with(getApplication())
-                        .load(uri)
-                        .into(profilePic);
-            }
+        return dishes;
 
-        });
     }
 
 

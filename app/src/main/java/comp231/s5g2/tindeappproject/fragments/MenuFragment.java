@@ -78,7 +78,7 @@ public class MenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        owner.setOwnerID("3");
+        owner.setOwnerID("1");
 
         DatabaseReference refDishes = myRef.child(owner.getOwnerID());
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
