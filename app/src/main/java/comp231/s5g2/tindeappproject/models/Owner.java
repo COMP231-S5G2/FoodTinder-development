@@ -7,6 +7,9 @@ public class Owner {
     String ownerID;
     Restaurant restaurant;
 
+    public Owner() {
+    }
+
     public String getOwnerID() {
         return ownerID;
     }

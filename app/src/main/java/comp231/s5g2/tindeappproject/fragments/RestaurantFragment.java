@@ -25,7 +25,6 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +39,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import comp231.s5g2.tindeappproject.R;
-import comp231.s5g2.tindeappproject.activity.CreateRestaurantActivity;
 import comp231.s5g2.tindeappproject.interfaces.IEditRestaurant;
 import comp231.s5g2.tindeappproject.models.Owner;
 import comp231.s5g2.tindeappproject.models.Restaurant;
@@ -83,11 +81,13 @@ public class RestaurantFragment extends Fragment implements IEditRestaurant {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_resturant, container, false);
 
-
-
         owner.setRestaurant(restaurant);
-        owner.setOwnerID("1");
+        owner.setOwnerID("2");
 
+
+        if (!Places.isInitialized()) {
+            Places.initialize(view.getContext(), "AIzaSyCO8C44wFERywfsQLZJYXOxq_PX7ENiDos");
+        }
 
         DatabaseReference ownerRef = myRef.child(owner.getOwnerID());
         ownerRef.addValueEventListener(new ValueEventListener() {
@@ -98,12 +98,10 @@ public class RestaurantFragment extends Fragment implements IEditRestaurant {
                     Owner ownerTemp = snapshot.getValue(Owner.class);
                     assert ownerTemp != null;
 
-
-
                     if (ownerTemp.getRestaurant() != null) {
                         FeedingData(ownerTemp);
                         ImageViewLoader(ownerTemp, view);
-                        NotClickable();
+                        Clickable(false);
 
                     }
                 }
@@ -136,7 +134,7 @@ public class RestaurantFragment extends Fragment implements IEditRestaurant {
 
 
         //using API key
-        Places.initialize(view.getContext(), "AIzaSyB5DgFnl3KJU2xBGoVSo_7SisLobRtmelE");
+
 
         mStorageRef = FirebaseStorage.getInstance().getReference().child("Restaurants");
         uploadButton = view.findViewById(R.id.buttonUpload);
@@ -213,16 +211,13 @@ public class RestaurantFragment extends Fragment implements IEditRestaurant {
      StorageReference strPicRef =  FirebaseStorage.getInstance().getReference().child(owner.getRestaurant().getPictureToken());
                   Log.e("Sucess",""+strPicRef.toString());
 
-            strPicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Log.e("Sucess",""+strPicRef);
+            strPicRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                Log.e("Success",""+strPicRef);
                 Glide.with(view.getContext())
                         .load(uri)
                         .into(restaurantImg);
 
-            }
-        });
+            });
 
 
     }
@@ -249,25 +244,24 @@ public class RestaurantFragment extends Fragment implements IEditRestaurant {
 
             assert data != null;
             Place place = Autocomplete.getPlaceFromIntent(data);
-            Log.d("ADDRESS", " :" + place.getAddress());
-
             mSearchText.setText(place.getAddress());
             readableAddress = mSearchText.getText().toString();
             editTextRestName.setText(place.getName());
             Log.d("ADDRESS", " Lat & Long:" + place.getLatLng());
-            //String foundPhoneNumber = place.getPhoneNumber();
-            //editTextPhoneNumber.setText(foundPhoneNumber);
-            //editTextWebsite.setText(place.getWebsiteUri().toString());
+            String foundPhoneNumber = place.getPhoneNumber();
+            editTextPhoneNumber.setText(foundPhoneNumber);
+            if (place.getWebsiteUri() != null) {
+                editTextWebsite.setText(place.getWebsiteUri().toString());
+            }
         } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
             assert data != null;
             Status status = Autocomplete.getStatusFromIntent(data);
-            Log.d("asdasd", " BAh" + status.getStatusMessage());
             Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), status.getStatusMessage(), Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    public void NotClickable(){
+    public void Clickable(boolean clickable) {
 
         list.add(editTextRestName);
         list.add(editTextPhoneNumber);
@@ -276,24 +270,17 @@ public class RestaurantFragment extends Fragment implements IEditRestaurant {
         list.add(restaurantImg);
         list.add(mSearchText);
 
-        for (View item : list){
-
-            item.setEnabled(false);
-        }
-        uploadButton.setVisibility(View.INVISIBLE);
-    }
-
-
-    public void Clickable(){
-
-
         for (View item : list) {
-            item.setEnabled(true);
+            item.setEnabled(clickable);
         }
-        uploadButton.setVisibility(View.VISIBLE);
-        uploadButton.setText("Save Changes");
-
+        if (clickable) {
+            uploadButton.setVisibility(View.VISIBLE);
+            uploadButton.setText("Save Changes");
+        } else {
+            uploadButton.setVisibility(View.INVISIBLE);
+        }
     }
+
 }
 
 

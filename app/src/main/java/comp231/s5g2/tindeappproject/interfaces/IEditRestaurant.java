@@ -4,6 +4,6 @@ import android.view.View;
 
 public interface IEditRestaurant {
 
-  void Clickable();
+  void Clickable(boolean clickable);
 
 }

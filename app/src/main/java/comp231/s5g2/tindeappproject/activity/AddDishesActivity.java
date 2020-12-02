@@ -10,18 +10,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +38,7 @@ import comp231.s5g2.tindeappproject.models.Restaurant;
 public class AddDishesActivity extends AppCompatActivity {
 
 
-    private List<Dish> dishList = new ArrayList<>();
+    private final List<Dish> dishList = new ArrayList<>();
 
 
     public Uri imgUri;
@@ -55,10 +50,10 @@ public class AddDishesActivity extends AppCompatActivity {
 
     private Owner owner = new Owner();
     private Restaurant restaurant = new Restaurant();
-    private Dish dish = new Dish();
-
+    private final Dish dish = new Dish();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Restaurants");
+    Animation shake;
 
     int listSize = 0;
 
@@ -69,8 +64,7 @@ public class AddDishesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_dishes);
         Log.e("Dishes", "Loading dishes Activity");
 
-        owner.setOwnerID("3");
-
+        owner.setOwnerID("2");
 
         dishImage = findViewById(R.id.imageViewDish);
         Button createDish = findViewById(R.id.createDishButton);
@@ -78,6 +72,7 @@ public class AddDishesActivity extends AppCompatActivity {
         dishRestriction = findViewById(R.id.editRectriction);
         dishDescription = findViewById(R.id.editTextDishDescription);
         dishName = findViewById(R.id.editTextDishName);
+        shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 
 
         DatabaseReference ownerRef = myRef.child(owner.getOwnerID());
@@ -88,16 +83,23 @@ public class AddDishesActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    owner = snapshot.getValue(Owner.class);
-                     restaurant = owner.getRestaurant();
-                    if (!restaurant.getDishes().isEmpty()) {
-                        dishList = restaurant.getDishes();
-                        listSize = dishList.size();
-                        dish.setDishID(listSize);
+                        Owner ownerDB = snapshot.getValue(Owner.class);
+                        if (ownerDB != null) {
+                            if (ownerDB.getRestaurant() != null) {
+                                restaurant = ownerDB.getRestaurant();
+                                if (ownerDB.getOwnerID().equals(owner.getOwnerID())){
+                                    owner = ownerDB;
+                                }
+                                if (restaurant.getDishes().size() > 0) {
+                                    dishList.addAll(restaurant.getDishes());
+                                    listSize = dishList.size();
+                                    dish.setDishID(listSize);
+                                }
+                            }
+                        }
                     }
-
-                }
-            }
+                    Log.e("Snp", "Size :" + listSize);
+                    }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -105,35 +107,28 @@ public class AddDishesActivity extends AppCompatActivity {
             }
         });
 
+
         createDish.setOnClickListener(v -> {
             if (imgUri == null) {
                 Toast.makeText(this,
                         "select an Image first", Toast.LENGTH_SHORT).show();
-                dishImage.animate().scaleX(0.25f);
-                dishImage.animate().scaleY(0.25f);
-                dishImage.animate().setDuration(400);
-
-                dishImage.clearAnimation();
-            } else if (uploadTask != null && uploadTask.isInProgress()) {
-                Toast.makeText(this,
-                        "Uploading, please, wait", Toast.LENGTH_SHORT).show();
-            } else {
+                dishImage.setAnimation(shake);
+            }else {
 
                 dish.setDescription(dishDescription.getText().toString().trim());
                 dish.setName(dishName.getText().toString().trim());
                 dish.setPrice(Double.parseDouble(dishPrice.getText().toString().trim()));
                 dish.setRestriction(dishRestriction.getText().toString().trim());
+                dish.setOwnerID(owner.getOwnerID());
 
                 Uploader(owner);
 
+            }if (uploadTask != null && uploadTask.isInProgress()) {
+                Toast.makeText(this,
+                        "Uploading, please, wait", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
-    /**
-     * -----------------------------------
-     **/
 
     private String getExtension(Uri uri) {
         ContentResolver cr = Objects.requireNonNull(this.getContentResolver());
@@ -147,7 +142,11 @@ public class AddDishesActivity extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference().child("Restaurants")
                 .child(owner.getOwnerID()).child("Dish_" + dish.getDishID() + "." + getExtension(imgUri));
         dish.setImageAccessToken(storageRef.getPath());
-        dishList.add(dish);
+        List<Dish> dishesToDB = new ArrayList<>();
+        dishesToDB.add(dish);
+        dishesToDB.addAll(owner.getRestaurant().getDishes());
+        owner.getRestaurant().setDishes(dishesToDB);
+
         Log.e("Upload", "" + storageRef.toString());
 
         uploadTask =
@@ -157,7 +156,6 @@ public class AddDishesActivity extends AppCompatActivity {
 
                             Toast.makeText(this,
                                     "Dish Created Successfully", Toast.LENGTH_SHORT).show();
-                            owner.setRestaurant(restaurant);
                             imgUri = null;
                             myRef.child(owner.getOwnerID()).setValue(owner);
 
@@ -169,7 +167,7 @@ public class AddDishesActivity extends AppCompatActivity {
 
     }
 
-    private void ImageViewloader(View view) {
+/*    private void ImageViewloader(View view) {
 
         Log.e("token", "picpth");
 
@@ -186,7 +184,7 @@ public class AddDishesActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
 
     private void fileChooser() {
@@ -208,14 +206,14 @@ public class AddDishesActivity extends AppCompatActivity {
         }
     }
 
-
-    private void NotClickable() {
-    }
-
-    private void ImageViewloader(Owner ownerTemp, View view) {
-    }
-
-    private void FeedingData(Owner ownerTemp) {
-    }
+//
+//    private void NotClickable() {
+//    }
+//
+//    private void ImageViewloader(Owner ownerTemp, View view) {
+//    }
+//
+//    private void FeedingData(Owner ownerTemp) {
+//    }
 
 }

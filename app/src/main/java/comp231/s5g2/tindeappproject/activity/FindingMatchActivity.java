@@ -28,6 +28,8 @@ import com.yuyakaido.android.cardstackview.StackFrom;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import comp231.s5g2.tindeappproject.R;
@@ -65,10 +67,8 @@ public class FindingMatchActivity extends AppCompatActivity {
         final CustomAlertDialog customAlertDialog = new CustomAlertDialog(FindingMatchActivity.this);
 
         //Id to the restaurant on the view should go here V
-        owner.setOwnerID("3");
 
         DatabaseReference ownerRef = dbRef.child("Restaurants");
-
         CardStackView cardStackView = findViewById(R.id.card_stack_view);
         ownerRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -81,7 +81,7 @@ public class FindingMatchActivity extends AppCompatActivity {
                       if (ownerDB != null) {
                           if (ownerDB.getRestaurant() != null) {
                               restaurant = ownerDB.getRestaurant();
-                              Log.e("Snp", "owner :" + ownerDB.getRestaurant().getRestaurantName());
+                              Log.e("Snap", "owner :" + ownerDB.getRestaurant().getRestaurantName());
                               if (restaurant.getDishes().size() > 0) {
                                   dishesList.addAll(restaurant.getDishes());
                               }
@@ -120,19 +120,15 @@ public class FindingMatchActivity extends AppCompatActivity {
                     Dish selectedDish = dishesList.get(manager.getTopPosition() - 1);
                     Toast.makeText(FindingMatchActivity.this, selectedDish.getName(), Toast.LENGTH_SHORT).show();
 
-
                     Intent  intent = new Intent(getApplicationContext(), DisplayRestaurantActivity.class);
                     intent.putExtra("SelectedDish", selectedDish.getDishID());
-
+                    intent.putExtra("SelectedOwner", selectedDish.getOwnerID());
 
                     customAlertDialog.startLoading();
-                    //dismissed alert dialog after 5 secs
+                    //dismissed alert dialog after 2 secs
                     Handler handler = new Handler();
-                    handler.postDelayed(customAlertDialog::dismissDialog,5000);
-
-                    //defining which restaurant was chosen
-
-
+                    handler.postDelayed(customAlertDialog::dismissDialog,2000);
+                    startActivity(intent);
                 }
 
                 if (direction == Direction.Left) {
@@ -185,14 +181,9 @@ public class FindingMatchActivity extends AppCompatActivity {
     }// end onCreate
 
     private void init() {
-
-
         //LinearLayout from item_card.xml
         layoutFoodRestriction = findViewById(R.id.layout_foodRestriction);
         layoutRadius = findViewById(R.id.layout_radius);
-
-
-
     }
 
     private void paginate() {
@@ -210,6 +201,8 @@ public class FindingMatchActivity extends AppCompatActivity {
             Log.e("dish picture", dish.getImageAcessToken());
             items.add(dish);
         }
+        //mixing up all the dishes
+        Collections.shuffle(items);
         return items;
     }
 

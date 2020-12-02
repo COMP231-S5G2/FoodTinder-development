@@ -1,7 +1,6 @@
 package comp231.s5g2.tindeappproject.fragments;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,18 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioButton;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,49 +32,36 @@ import comp231.s5g2.tindeappproject.models.Restaurant;
 
 public class MenuFragment extends Fragment {
 
-    private List<Dish> dishList = new ArrayList<>();
-
-    public Uri imguri;
-    StorageReference storageRef;
-    private StorageTask uploadTask;
-
-    private EditText dishName, dishDescription;
-    private ImageView dishImage;
-    private CheckBox petSafe, vegan, vegetarian, nutsFree, halal;
-    private Button createDish;
 
     private Owner owner = new Owner();
     private Restaurant restaurant = new Restaurant();
-    private Dish dish = new Dish();
-    private List<Dish> listDish = new ArrayList();
+    private List<Dish> listDish = new ArrayList<>();
 
     private RecyclerView recyclerViewDishes;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Restaurants");
-
-    private StorageReference refDishImage;
     private AdapterListDishes adapter;
 
     private Button addDishActivity;
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
 
+    public MenuFragment() {
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-
-        }
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        owner.setOwnerID("1");
-
-        DatabaseReference refDishes = myRef.child(owner.getOwnerID());
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
+
+        owner.setOwnerID("2");
+        DatabaseReference refDishes = myRef.child(owner.getOwnerID());
+
 
         addDishActivity = view.findViewById(R.id.buttonAddDish);
         recyclerViewDishes = view.findViewById(R.id.RecyclerViewDishes);
@@ -91,21 +71,24 @@ public class MenuFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if (snapshot.exists()) {
-
                     owner = snapshot.getValue(Owner.class);
+
                     restaurant = owner.getRestaurant();
                     listDish = restaurant.getDishes();
+                    if (restaurant == null){
+                        addDishActivity.setVisibility(View.INVISIBLE);
+                    }
                     Log.e("Size ", ""+listDish.size());
                     if (listDish.size() > 0) {
                         addDishActivity.setVisibility(View.INVISIBLE);
-                        adapter = new AdapterListDishes(listDish);
+                        adapter = new AdapterListDishes(listDish,false);
                         recyclerViewDishes.setAdapter(adapter);
 
-
                     }
+                    recyclerViewDishes.setHasFixedSize(true);
+                    recyclerViewDishes.setLayoutManager(layoutManager);
                 }
-                recyclerViewDishes.setHasFixedSize(true);
-                recyclerViewDishes.setLayoutManager(layoutManager);
+
             }
 
             @Override
@@ -115,16 +98,10 @@ public class MenuFragment extends Fragment {
 
         });
 
+        addDishActivity.setOnClickListener(v -> {
 
-
-
-        addDishActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getContext(), AddDishesActivity.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(getContext(), AddDishesActivity.class);
+            startActivity(intent);
         });
 
         return view;

@@ -1,5 +1,7 @@
 package comp231.s5g2.tindeappproject.models;
 
+import java.sql.Struct;
+
 public class Dish {
     private String name;
     private double price;
@@ -7,6 +9,7 @@ public class Dish {
     private String imageAcessToken;
     private int dishID;
     private String restriction;
+    private String ownerID;
 
     public Dish(String nome, double price, String description, String restriction)
     {
@@ -15,6 +18,14 @@ public class Dish {
         this.description = description;
         this.restriction = restriction;
 
+    }
+
+    public String getOwnerID() {
+        return ownerID;
+    }
+
+    public void setOwnerID(String ownerID) {
+        this.ownerID = ownerID;
     }
 
     public int getDishID() {

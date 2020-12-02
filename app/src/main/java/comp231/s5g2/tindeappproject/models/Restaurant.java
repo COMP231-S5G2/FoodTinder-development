@@ -16,6 +16,8 @@ public class Restaurant {
     private String pictureToken;
 
 
+
+
     public Restaurant(String restaurantName, String restaurantPhone, String restauranteAddress, List<Dish> dishes) {
         this.restaurantName = restaurantName;
         this.restaurantPhone = restaurantPhone;
@@ -75,5 +77,7 @@ public class Restaurant {
     public void setDishes(List<Dish> dishes) {
         this.dishes = dishes;
     }
+
+
 
 }

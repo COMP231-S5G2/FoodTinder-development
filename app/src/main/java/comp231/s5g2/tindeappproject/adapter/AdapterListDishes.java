@@ -36,15 +36,16 @@ import comp231.s5g2.tindeappproject.models.Dish;
 public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.MyViewHolder> {
 
     List<Dish> dishList = new ArrayList<>();
-    private int matchedDishID;
+    boolean animate = false;
     Animation shake;
 
 
 
 
-    public AdapterListDishes( List<Dish> dishModel) {
+    public AdapterListDishes( List<Dish> dishModel, boolean animate) {
 
         this.dishList = dishModel;
+        this.animate = animate;
 
     }
 
@@ -72,14 +73,13 @@ public class AdapterListDishes extends RecyclerView.Adapter<AdapterListDishes.My
 
         Dish dish = dishList.get(position);
 
-        if(dish.getDishID()==matchedDishID)
+        if(position == 0 && animate)
         {
             //@SuppressLint("UseCompatLoadingForDrawables") Drawable highlight = ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.highlight_dish);
             holder.itemView
                     .setElevation(30f);
             holder.itemView
                     .setAnimation(shake);
-            holder.itemView.setVerticalScrollbarPosition(0);
 
         }
 

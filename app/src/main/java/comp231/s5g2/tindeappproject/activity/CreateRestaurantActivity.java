@@ -17,11 +17,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
-
 import comp231.s5g2.tindeappproject.R;
 import comp231.s5g2.tindeappproject.fragments.MenuFragment;
 import comp231.s5g2.tindeappproject.fragments.RestaurantFragment;
-import comp231.s5g2.tindeappproject.interfaces.IEditRestaurant;
 
 public class CreateRestaurantActivity extends AppCompatActivity {
 
@@ -32,7 +30,6 @@ public class CreateRestaurantActivity extends AppCompatActivity {
     TextView labelEditRestaurant, labelEditMenu;
 
     private boolean clicked = false;
-    private IEditRestaurant listener;
 
     @SuppressLint("ShowToast")
     @Override
@@ -42,6 +39,11 @@ public class CreateRestaurantActivity extends AppCompatActivity {
 
         Log.e("Restaurant", "Loading restaurant Activity");
 
+
+     /*   public void setListener(IEditRestaurant listener)
+        {
+            this.listener = listener ;
+        }*/
 
 
         labelEditMenu = findViewById(R.id.editRestaurantLabel);
@@ -77,25 +79,19 @@ public class CreateRestaurantActivity extends AppCompatActivity {
                 editButtonClicked();
                 });
 
-
-
         editMenu.setOnClickListener(v -> {
             setClickable(clicked);
             setVisibility(!clicked);
             Intent intent = new Intent(getApplicationContext(), AddDishesActivity.class);
             startActivity(intent);
 
-
-
         });
 
         editRestaurant.setOnClickListener(v -> {
                     setClickable(clicked);
                     RestaurantFragment fragment = new RestaurantFragment();
-                    fragment.Clickable();
+                    fragment.Clickable(true);
                     setVisibility(!clicked);
-
-
 
                 }
 

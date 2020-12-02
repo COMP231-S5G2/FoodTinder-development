@@ -36,8 +36,7 @@ import comp231.s5g2.tindeappproject.models.Dish;
 import comp231.s5g2.tindeappproject.models.Owner;
 import comp231.s5g2.tindeappproject.models.Restaurant;
 
-public class
-DisplayRestaurantActivity extends AppCompatActivity {
+public class DisplayRestaurantActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Restaurants");
@@ -63,7 +62,6 @@ DisplayRestaurantActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.e("Display", "Loading display Activity");
 
-        String matchedRestaurantID = "3";
 
         Button nextActivity = findViewById(R.id.buttonNextActivity);
         nextActivity.setOnClickListener(v -> {
@@ -71,18 +69,21 @@ DisplayRestaurantActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-       // getDishImages();
 
-        dishesRef = restRef.child(matchedRestaurantID);
+        //getting data from finding match activity
+        Bundle data = getIntent().getExtras();
+        matchedDishID = data.getInt("SelectedDish");
+        String matchedOwnerID = data.getString("SelectedOwner");
+
+        dishesRef = restRef.child(matchedOwnerID);
         profilePic = findViewById(R.id.profileImage);
-        //listDishes = findViewById(R.id.RecyclerViewDishes);
         restaurantName = findViewById(R.id.restaurantName);
         restaurantPhone = findViewById(R.id.restaurantPhone);
         restaurantWebsite = findViewById(R.id.restaurantWebsite);
         recyclerViewDishes = findViewById(R.id.recyclerView);
 
 
-        DatabaseReference ref = myRef.child(matchedRestaurantID);
+        DatabaseReference ref = myRef.child(matchedOwnerID);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -98,7 +99,7 @@ DisplayRestaurantActivity extends AppCompatActivity {
                     restaurantImg = restaurant.getPictureToken();
                     if (dishes.size() > 0) {
                         dishes = restaurant.getDishes();
-                        adapter = new AdapterListDishes(dishesControl(dishes,matchedDishID));
+                        adapter = new AdapterListDishes(dishesControl(dishes,matchedDishID),true);
                         recyclerViewDishes.setAdapter(adapter);
                         recyclerViewDishes.setHasFixedSize(true);
                         recyclerViewDishes.setLayoutManager(layoutManager);
@@ -113,9 +114,6 @@ DisplayRestaurantActivity extends AppCompatActivity {
 
                 }
             }
-
-
-
             @Override
             public void onCancelled(@NotNull DatabaseError error) {
                 // Failed to read value
@@ -131,13 +129,11 @@ DisplayRestaurantActivity extends AppCompatActivity {
 
     private List<Dish> dishesControl(List<Dish> dishes, int matchedDishID) {
 
+       if (matchedDishID > 0){
         Collections.swap(dishes, matchedDishID, 0);
-
+       }
         return dishes;
-
     }
-
-
 
     private void ImageViewLoader() {
 
