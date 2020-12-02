@@ -9,4 +9,9 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="editLabel">Edit</string>
     <string name="restaurantSite">Restaurant Website</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="Login">Login</string>
+    <string name="SignUp">Sign Up!</string>
+    <string name="LoginAsGuest">Login As Guest</string>
 </resources>

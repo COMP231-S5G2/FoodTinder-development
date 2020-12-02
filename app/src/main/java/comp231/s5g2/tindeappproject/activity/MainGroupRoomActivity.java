@@ -23,7 +23,7 @@ import comp231.s5g2.tindeappproject.models.GroupRoom;
 
 public class MainGroupRoomActivity extends AppCompatActivity {
     private EditText roomName, roomCode, roomLocation;
-    private Button btnCreateGrp;
+    private Button btnCreateGrp, btnStartMatch;
     private DatabaseReference groupDbRef;
     SharedPreferences sharedPreferences;
     int groupID;
@@ -38,6 +38,7 @@ public class MainGroupRoomActivity extends AppCompatActivity {
         roomCode = findViewById(R.id.etRoomCode);
         roomLocation = findViewById(R.id.etLocation);
         btnCreateGrp = findViewById(R.id.btnCreateGrp);
+        btnStartMatch = findViewById(R.id.btnStartFoodMatch);
 
         String strRoomName = roomName.getText().toString();
         String strRoomCode = roomCode.getText().toString();
@@ -54,19 +55,20 @@ public class MainGroupRoomActivity extends AppCompatActivity {
         groupDbRef = FirebaseDatabase.getInstance().getReference().child("GroupRoom");
 
 
-        btnCreateGrp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                insertData();
-                startActivity(new Intent(getApplicationContext(),GroupRoomInfoActivity.class));
+        btnCreateGrp.setOnClickListener(view -> {
+            insertData();
+            startActivity(new Intent(getApplicationContext(),GroupRoomInfoActivity.class));
 
-                sharedPreferences = getSharedPreferences("SaveData", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Value1",roomName.getText().toString());
-                editor.putString("Value2",roomCode.getText().toString());
-                editor.putString("Value3",roomLocation.getText().toString());
-                editor.commit();
-            }
+            sharedPreferences = getSharedPreferences("SaveData", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Value1",roomName.getText().toString());
+            editor.putString("Value2",roomCode.getText().toString());
+            editor.putString("Value3",roomLocation.getText().toString());
+            editor.commit();
+        });
+
+        btnStartMatch.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), FindingMatchActivity.class));
         });
 
     }
@@ -82,6 +84,12 @@ public class MainGroupRoomActivity extends AppCompatActivity {
         groupDbRef.child(String.valueOf(groupID)).setValue(groupRoom);
 
     }
+
+
+
+
+
+
 
 
 }

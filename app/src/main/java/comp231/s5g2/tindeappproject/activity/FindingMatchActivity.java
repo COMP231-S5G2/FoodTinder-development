@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,11 +57,15 @@ public class FindingMatchActivity extends AppCompatActivity {
     private TextView resHalala, resNuts, resVegan, resVegatarian, resPetSafe;
     private LinearLayout layoutFoodRestriction, layoutRadius;
 
-
+    private FirebaseAuth user = FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finding_match_activity);
+
+        if (user.getCurrentUser() != null){
+            Log.i("User", "User logged in!");
+        }
 
         init();
 
