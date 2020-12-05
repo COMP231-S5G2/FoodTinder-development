@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,11 +58,20 @@ public class AddDishesActivity extends AppCompatActivity {
     DatabaseReference myRef = database.getReference("Restaurants");
     Animation shake;
 
+    private HashMap<String, String> values = new HashMap<String, String>();
+
     int listSize = 0;
+
 
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //adding dish before exit
+        values.put("dishName","");
+        values.put("dishPrice","");
+        values.put("dishDescription","");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dishes);
         Log.e("Dishes", "Loading dishes Activity");
@@ -128,7 +140,7 @@ public class AddDishesActivity extends AppCompatActivity {
                         "Uploading, please, wait", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }//end of onCreate
 
     private String getExtension(Uri uri) {
         ContentResolver cr = Objects.requireNonNull(this.getContentResolver());
@@ -165,6 +177,10 @@ public class AddDishesActivity extends AppCompatActivity {
 
                         });
 
+        //adding dish info
+        values.put("dishName",dishName.getText().toString());
+        values.put("dishPrice",dishPrice.getText().toString());
+        values.put("dishDescription",dishDescription.getText().toString());
     }
 
 /*    private void ImageViewloader(View view) {
@@ -205,6 +221,28 @@ public class AddDishesActivity extends AppCompatActivity {
 
         }
     }
+
+    //softback key trigger alertdialog
+    @Override
+    public void onBackPressed() {
+        //check if there is any input made
+        if(!dishName.getText().toString().equals(values.get("dishName")) || !dishDescription.getText().toString().equals(values.get("dishDescription")) || !dishPrice.getText().toString().equals(values.get("dishPrice"))) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Really Exit?")
+                    .setMessage("Information has not been saved. Are you sure you want to exit?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            AddDishesActivity.super.onBackPressed();
+                        }
+                    }).create().show();
+        }
+        else {
+            AddDishesActivity.super.onBackPressed();
+        }
+    }
+
 
 //
 //    private void NotClickable() {
