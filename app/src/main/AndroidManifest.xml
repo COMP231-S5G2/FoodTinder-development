@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,14 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".activity.CreateUserActivity"/>
-        <activity android:name=".activity.LoginActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity><!-- Restaurant Activities -->
+        <activity android:name=".activity.JoiningGroupRoom"></activity>
+        <activity android:name=".activity.ChangePreferenceActivity" />
+        <activity android:name=".activity.CreateUserActivity" />
+        <activity android:name=".activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- Restaurant Activities -->
         <activity android:name=".activity.DisplayRestaurantActivity" />
         <activity android:name=".activity.AddDishesActivity" />
         <activity android:name=".activity.CreateRestaurantActivity" /> <!-- Finding Match Activities -->
@@ -32,8 +35,7 @@
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" /> <!-- Group Room Activities -->
         <activity android:name=".activity.MainGroupRoomActivity" />
         <activity android:name=".activity.GroupRoomInfoActivity" /> <!-- Main -->
-        <activity android:name=".activity.HomeActivity">
-        </activity>
+        <activity android:name=".activity.HomeActivity" />
     </application>
 
 </manifest>
