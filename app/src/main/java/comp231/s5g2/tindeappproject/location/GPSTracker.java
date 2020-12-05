@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 
 public class GPSTracker implements LocationListener {
 
-    private final Context context;
+    private Context context;
 
     public boolean gpsEnabled = false;
 
@@ -23,6 +23,10 @@ public class GPSTracker implements LocationListener {
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1;
     private static final long MIN_TIME_BW_UPDATES = 1;
     protected LocationManager lm;
+
+    public GPSTracker() {
+
+    }
 
     public GPSTracker(Context c){
 

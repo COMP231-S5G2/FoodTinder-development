@@ -85,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/imageView8"
         android:layout_width="261dp"
         android:layout_height="113dp"
@@ -93,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_food" />
+        app:srcCompat="@drawable/ic_food" />-->
 
     <TextView
         android:id="@+id/textView6"

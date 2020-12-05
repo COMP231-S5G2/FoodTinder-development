@@ -15,13 +15,14 @@ import com.google.firebase.storage.StorageReference;
 import java.util.List;
 
 import comp231.s5g2.tindeappproject.R;
+import comp231.s5g2.tindeappproject.location.GPSTracker;
 import comp231.s5g2.tindeappproject.models.Dish;
 
 import com.bumptech.glide.Glide;
 
 public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.ViewHolder>{
     private List<Dish> items;
-
+    GPSTracker gps = new GPSTracker();
     public CardStackAdapter(List<Dish> items)
     {
         this.items = items;
@@ -67,6 +68,7 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
                     .into(image);
 
             name.setText(data.getName());
+            location.setText(gps.getLocation().toString());
             restriction.setText(data.getRestriction());
         }
     }
