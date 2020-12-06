@@ -177,10 +177,9 @@
             android:layout_marginLeft="10dp"
             android:background="@drawable/custom_gray_button"
             android:text="LogOut"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
-
 
 
 </LinearLayout>
