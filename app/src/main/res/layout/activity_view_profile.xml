@@ -142,6 +142,17 @@
     </LinearLayout>
 
 
+    <TextView
+        android:id="@+id/tvResetPassword"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="right"
+        android:text="Reset Password"
+        android:textColor="@color/group_font_color"
+        android:textSize="15dp" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="98dp"
@@ -169,7 +180,6 @@
             android:textColor="@android:color/white" />
 
     </LinearLayout>
-
 
 
 

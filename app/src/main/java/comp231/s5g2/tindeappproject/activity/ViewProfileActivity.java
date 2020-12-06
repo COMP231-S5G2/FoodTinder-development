@@ -21,9 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 import comp231.s5g2.tindeappproject.R;
 import comp231.s5g2.tindeappproject.models.User;
 
-public class ViewProfileActivity extends AppCompatActivity {
+public class ViewProfileActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView userName, name, email, mobile;
+    private TextView userNameTV, nameTV, emailTV, mobileTV, resetPassword;
     private Button edit, logout;
 
     //Firebase
@@ -38,15 +38,31 @@ public class ViewProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profile);
 
+        //initialize layout
+        resetPassword = findViewById(R.id.tvResetPassword);
         edit = findViewById(R.id.btnEdit);
         logout = findViewById(R.id.btnLogOut);
 
-        //user log out from the app
-        logout.setOnClickListener(new View.OnClickListener() {
+        //TextView
+        userNameTV = findViewById(R.id.tvUserName);
+        nameTV = findViewById(R.id.tvName);
+        emailTV = findViewById(R.id.tvEmail);
+        mobileTV = findViewById(R.id.tvMobile);
+
+        logout.setOnClickListener(this::onClick);
+
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                Intent i = new Intent(view.getContext(), EditAccountActivity.class);
+
+                //pass the TextView data from this to EditAccountActivity
+                i.putExtra("mUserName", userNameTV.getText().toString().trim());
+                i.putExtra("mName", nameTV.getText().toString().trim());
+                i.putExtra("mEmail", emailTV.getText().toString().trim());
+                i.putExtra("mMobileTV", mobileTV.getText().toString().trim());
+
+                startActivity(i);
             }
         });
 
@@ -88,6 +104,19 @@ public class ViewProfileActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    //method for button click
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnLogOut:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                break;
+
+        }
 
     }
 }

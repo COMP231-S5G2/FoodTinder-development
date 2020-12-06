@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         if(task.isSuccessful()){
                             //redirect to user profile
-                            startActivity(new Intent(LoginActivity.this, FindingMatchActivity.class));
+                            startActivity(new Intent(LoginActivity.this, ViewProfileActivity.class));
 
                         }else{
                             Toast.makeText(LoginActivity.this, "Failed to sign in. " +
