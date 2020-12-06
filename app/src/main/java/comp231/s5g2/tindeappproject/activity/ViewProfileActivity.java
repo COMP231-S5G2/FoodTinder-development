@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
 
     private TextView userNameTV, nameTV, emailTV, mobileTV, resetPassword;
     private Button edit, logout;
+    private LinearLayout layout;
 
     //Firebase
     private FirebaseUser user;
@@ -49,6 +51,8 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
         emailTV = findViewById(R.id.tvEmail);
         mobileTV = findViewById(R.id.tvMobile);
 
+
+        resetPassword.setOnClickListener(this::onClick);
         logout.setOnClickListener(this::onClick);
 
         edit.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +118,10 @@ public class ViewProfileActivity extends AppCompatActivity implements View.OnCli
             case R.id.btnLogOut:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                break;
+
+            case R.id.tvResetPassword:
+                startActivity(new Intent(getApplicationContext(),ForgotPasswordActivity.class));
                 break;
 
         }
