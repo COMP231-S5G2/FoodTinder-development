@@ -146,6 +146,12 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
             return;
         }
 
+        if(!inputConfirmPw.equals(inputPassword)){
+            confirmPassword.setError("Password does not match");
+            confirmPassword.requestFocus();
+            return;
+        }
+
         mFirebaseAuth.createUserWithEmailAndPassword(inputEmail, inputPassword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

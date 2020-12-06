@@ -57,6 +57,9 @@ public class FindingMatchActivity extends AppCompatActivity {
     private ArrayList<Dish> items;
     private IRestaurantData listener;
 
+    //Toolbar
+    private Toolbar toolbar;
+
 
     //layout Food Restrictions
     private TextView resHalala, resNuts, resVegan, resVegatarian, resPetSafe;
@@ -68,6 +71,9 @@ public class FindingMatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finding_match_activity);
 
+        //toolbar
+        toolbar = findViewById(R.id.AppBar);
+        setSupportActionBar(toolbar);
 
         if (user.getCurrentUser() != null){
             Log.i("User", "User logged in!");
@@ -76,7 +82,7 @@ public class FindingMatchActivity extends AppCompatActivity {
         init();
 
         //loading dialog
-        final CustomAlertDialog customAlertDialog = new CustomAlertDialog(FindingMatchActivity.this);
+        final CustomFindingMatchDialog findingMatchDialog = new CustomFindingMatchDialog(FindingMatchActivity.this);
 
         //Id to the restaurant on the view should go here V
 
@@ -136,10 +142,10 @@ public class FindingMatchActivity extends AppCompatActivity {
                     intent.putExtra("SelectedDish", selectedDish.getDishID());
                     intent.putExtra("SelectedOwner", selectedDish.getOwnerID());
 
-                    customAlertDialog.startLoading();
+                    findingMatchDialog.startLoading();
                     //dismissed alert dialog after 2 secs
                     Handler handler = new Handler();
-                    handler.postDelayed(customAlertDialog::dismissDialog,2000);
+                    handler.postDelayed(findingMatchDialog::dismissDialog,5000);
                     startActivity(intent);
                 }
 
@@ -217,6 +223,28 @@ public class FindingMatchActivity extends AppCompatActivity {
         Collections.shuffle(items);
         return items;
     }
+
+    //method for menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.user_info, menu);
+        return true;
+    }
+
+    //select item menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.viewUser:
+                startActivity(new Intent(getApplicationContext(),ViewProfileActivity.class));
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }//end onOptionsItemSelected
 
 
 }

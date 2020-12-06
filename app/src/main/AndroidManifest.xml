@@ -29,13 +29,16 @@
         </activity> <!-- Restaurant Activities -->
         <activity android:name=".activity.DisplayRestaurantActivity" />
         <activity android:name=".activity.AddDishesActivity" />
-        <activity android:name=".activity.CreateRestaurantActivity" /> <!-- Finding Match Activities -->
+        <activity android:name=".activity.CreateRestaurantActivity" />
+
+        <!-- Finding Match Activities -->
         <activity android:name=".activity.FindingMatchHomeActivity" />
         <activity
             android:name=".activity.FindingMatchActivity"
             android:label="View Profile"
-            android:parentActivityName=".activity.ViewProfileActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" /> <!-- Group Room Activities -->
+            />
+
+        <!-- Group Room Activities -->
         <activity android:name=".activity.MainGroupRoomActivity" />
         <activity android:name=".activity.GroupRoomInfoActivity" /> <!-- Main -->
         <activity android:name=".activity.HomeActivity" />
