@@ -55,6 +55,16 @@
         android:background="@drawable/custom_input"
         android:inputType="textPassword" />
 
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Forgot password?"
+        android:textAlignment="viewEnd"
+        android:textColor="@color/group_font_color" />
+
     <Button
         android:id="@+id/btnLogIn"
         android:layout_width="match_parent"

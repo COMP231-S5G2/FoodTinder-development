@@ -57,7 +57,6 @@ public class FindingMatchActivity extends AppCompatActivity {
     private ArrayList<Dish> items;
     private IRestaurantData listener;
 
-    private Toolbar toolbar;
 
     //layout Food Restrictions
     private TextView resHalala, resNuts, resVegan, resVegatarian, resPetSafe;
@@ -69,9 +68,6 @@ public class FindingMatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finding_match_activity);
 
-        //Toolbar - id can be found at custom_appbar layout
-        toolbar = findViewById(R.id.AppBar);
-        setSupportActionBar(toolbar);
 
         if (user.getCurrentUser() != null){
             Log.i("User", "User logged in!");
@@ -222,27 +218,5 @@ public class FindingMatchActivity extends AppCompatActivity {
         return items;
     }
 
-    //method for menu icon to show
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.user_info, menu);
-        return true;
-    }
-
-    //select item menu to view user profile
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            //id can be found on user_info.xml
-            case R.id.viewUser:
-                startActivity(new Intent(getApplicationContext(),ViewProfileActivity.class));
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }//end onOptionsItemSelected
 
 }

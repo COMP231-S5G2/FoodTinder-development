@@ -6,8 +6,8 @@
     tools:context=".activity.FindingMatchActivity"
     android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
-    <include
-        layout="@layout/custom_appbar" />
+    <!--include
+        layout="@layout/custom_appbar" /-->
 
     <com.yuyakaido.android.cardstackview.CardStackView
         android:id="@+id/card_stack_view"

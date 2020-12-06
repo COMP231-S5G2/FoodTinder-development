@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText email, password;
     private Button logIn;
-    private TextView signUp, guestLogIn;
+    private TextView signUp, guestLogIn, forgotPassword;
     private LinearLayout layout;
 
     String inputEmail, inputPassword;
@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         logIn = findViewById(R.id.btnLogIn);
         signUp = findViewById(R.id.tvSignUp);
         guestLogIn = findViewById(R.id.tvGuestLogIn);
+        forgotPassword = findViewById(R.id.tvForgotPassword);
 
         //initialize Firebase
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -54,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         logIn.setOnClickListener(this);
         signUp.setOnClickListener(this);
         guestLogIn.setOnClickListener(this);
+        forgotPassword.setOnClickListener(this);
 
     }//end of onCreate
 
@@ -71,6 +73,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.tvGuestLogIn:
                 startActivity(new Intent(getApplicationContext(),FindingMatchActivity.class));
+                break;
+
+            case R.id.tvForgotPassword:
+                startActivity(new Intent(getApplicationContext(),ForgotPasswordActivity.class));
                 break;
 
         }
