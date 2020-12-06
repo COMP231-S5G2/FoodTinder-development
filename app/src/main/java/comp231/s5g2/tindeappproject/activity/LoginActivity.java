@@ -3,13 +3,17 @@ package comp231.s5g2.tindeappproject.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +29,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText email, password;
     private Button logIn;
     private TextView signUp, guestLogIn;
+    private LinearLayout layout;
 
     String inputEmail, inputPassword;
 
@@ -38,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //initialize
         email = findViewById(R.id.etEmailAddress);
         password = findViewById(R.id.etPassword);
+        layout = findViewById(R.id.logInLayout);
         logIn = findViewById(R.id.btnLogIn);
         signUp = findViewById(R.id.tvSignUp);
         guestLogIn = findViewById(R.id.tvGuestLogIn);
@@ -106,8 +112,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
-                            //redirect to user findingmatch
-                            startActivity(new Intent(LoginActivity.this, FindingMatchActivity.class));
+
+                            //hide keyboard
+                            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(layout.getWindowToken(), 0);
+
+                            //TODO redirect to user findingmatch
+                            final CustomAlertDialog customAlertDialog = new CustomAlertDialog(LoginActivity.this);
+                            customAlertDialog.startLoading();
+
+                            //dismissed alert dialog after 5 secs
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    customAlertDialog.dismissDialog();
+                                }
+                            },5000);
+
+                            startActivity(new Intent(LoginActivity.this, ViewProfileActivity.class));
 
                         }else{
                             Toast.makeText(LoginActivity.this, "Failed to sign in. " +

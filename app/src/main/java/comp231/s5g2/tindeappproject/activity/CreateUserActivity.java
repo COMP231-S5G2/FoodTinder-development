@@ -16,8 +16,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewDebug;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
     private ProgressDialog mProgressDialog;
     private Context mContext;
     private Activity mActivity;
+    private LinearLayout layout;
 
 
     String inputUserName, inputName, inputEmail, inputPassword, inputMobile, inputConfirmPw;
@@ -59,6 +62,7 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
         confirmPassword = findViewById(R.id.etConfirmPassword);
         createAccount = findViewById(R.id.btnCreateAccount);
         logIn = findViewById(R.id.tvLogIn);
+        layout = findViewById(R.id.createUserLayout);
 
         //initialize Firebase
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -157,7 +161,14 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if(task.isSuccessful()){
+
+                                        //hide keyboard
+                                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                                        imm.hideSoftInputFromWindow(layout.getWindowToken(), 0);
+
                                         Toast.makeText(CreateUserActivity.this, "Account created", Toast.LENGTH_LONG).show();
+
+                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
                                     }else {
                                         Toast.makeText(CreateUserActivity.this, "Failed to register", Toast.LENGTH_LONG).show();
@@ -166,6 +177,11 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
                             });
 
                         } else {
+
+                            //hide keyboard
+                            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(layout.getWindowToken(), 0);
+
                             Toast.makeText(CreateUserActivity.this, "Failed to register", Toast.LENGTH_LONG).show();
                         }
 

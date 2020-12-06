@@ -1,4 +1,4 @@
-package comp231.s5g2.tindeappproject.activity;
+package comp231.s5g2.tindeappproject.tasks;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import comp231.s5g2.tindeappproject.R;
 
 public class CustomAlertDialog {
+
     //declare private members
     private Activity activity;
     private AlertDialog dialog;
@@ -34,6 +35,4 @@ public class CustomAlertDialog {
         dialog.dismiss();
 
     }
-
-
 }
