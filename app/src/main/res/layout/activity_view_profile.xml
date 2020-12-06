@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Account View"
+        android:textColor="@color/group_font_color"
+        android:textAlignment="inherit"
+        android:textSize="30dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:text="User Name:"
+            android:textStyle="italic"
+            android:textColor="@color/opaqueRed"
+            android:textAlignment="inherit"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="241dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/custom_input"
+            android:textColor="@color/black"
+            android:hint="username"
+            android:padding="10dp"
+            android:textAlignment="inherit"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="97dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:text="Name:"
+            android:textAlignment="inherit"
+            android:textColor="@color/opaqueRed"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="243dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_input"
+            android:hint="Name"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:textAlignment="inherit"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="97dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:text="Email:"
+            android:textAlignment="inherit"
+            android:textColor="@color/opaqueRed"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="241dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_input"
+            android:hint="Email"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:textAlignment="inherit"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="97dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:text="Mobile No.:"
+            android:textAlignment="inherit"
+            android:textColor="@color/opaqueRed"
+            android:textSize="15sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tvMobile"
+            android:layout_width="242dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_input"
+            android:hint="Mobile No."
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textAlignment="inherit"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="98dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="126dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/custom_red_button"
+            android:text="Edit Account"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/custom_gray_button"
+            android:text="LogOut"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

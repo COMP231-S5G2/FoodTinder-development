@@ -127,7 +127,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:textColor="@android:color/white"
-        android:backgroundTint="@color/group_font_color"
+        android:background="@drawable/custom_red_button"
         android:text="Create Account" />
 
     <LinearLayout

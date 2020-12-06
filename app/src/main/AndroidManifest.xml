@@ -14,11 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".activity.JoiningGroupRoom"></activity>
+        <activity android:name=".activity.ViewProfileActivity"></activity>
+        <activity android:name=".activity.JoiningGroupRoom" />
         <activity android:name=".activity.ChangePreferenceActivity" />
-        <activity android:name=".activity.CreateUserActivity" />
-
-        <!-- Home Screen -->
+        <activity android:name=".activity.CreateUserActivity" /> <!-- Home Screen -->
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

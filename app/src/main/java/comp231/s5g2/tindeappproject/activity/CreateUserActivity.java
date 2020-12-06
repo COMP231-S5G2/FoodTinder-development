@@ -80,6 +80,7 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.tvLogIn:
                 startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                break;
         }
 
     }//end onClick
@@ -142,7 +143,7 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()) {
-                            User user = new User(inputUserName, inputName, inputEmail, inputEmail);
+                            User user = new User(inputUserName, inputName, inputEmail, inputMobile);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
