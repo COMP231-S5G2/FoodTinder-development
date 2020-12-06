@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
@@ -53,6 +57,8 @@ public class FindingMatchActivity extends AppCompatActivity {
     private ArrayList<Dish> items;
     private IRestaurantData listener;
 
+    private Toolbar toolbar;
+
     //layout Food Restrictions
     private TextView resHalala, resNuts, resVegan, resVegatarian, resPetSafe;
     private LinearLayout layoutFoodRestriction, layoutRadius;
@@ -62,6 +68,10 @@ public class FindingMatchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finding_match_activity);
+
+        //Toolbar - id can be found at custom_appbar layout
+        toolbar = findViewById(R.id.AppBar);
+        setSupportActionBar(toolbar);
 
         if (user.getCurrentUser() != null){
             Log.i("User", "User logged in!");
@@ -211,5 +221,28 @@ public class FindingMatchActivity extends AppCompatActivity {
         Collections.shuffle(items);
         return items;
     }
+
+    //method for menu icon to show
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.user_info, menu);
+        return true;
+    }
+
+    //select item menu to view user profile
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            //id can be found on user_info.xml
+            case R.id.viewUser:
+                startActivity(new Intent(getApplicationContext(),ViewProfileActivity.class));
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }//end onOptionsItemSelected
 
 }

@@ -2,6 +2,7 @@ package comp231.s5g2.tindeappproject.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -10,6 +11,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewDebug;
 import android.widget.Button;
@@ -36,6 +40,7 @@ public class CreateUserActivity extends AppCompatActivity implements View.OnClic
     private ProgressDialog mProgressDialog;
     private Context mContext;
     private Activity mActivity;
+
 
     String inputUserName, inputName, inputEmail, inputPassword, inputMobile, inputConfirmPw;
     FirebaseAuth mFirebaseAuth;

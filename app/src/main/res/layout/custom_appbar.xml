@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Mary Kristine Pacleb | Student No.301082263-->
+
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    android:id="@+id/marykristineAppBar"
+    android:id="@+id/AppBar"
     app:title="Food Tinder"
-    android:fontFamily="@font/open_sans_light">
+    android:fontFamily="@font/pacifico">
 
 </androidx.appcompat.widget.Toolbar>

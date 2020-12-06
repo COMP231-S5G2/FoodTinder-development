@@ -6,15 +6,19 @@
     tools:context=".activity.FindingMatchActivity"
     android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
+    <include
+        layout="@layout/custom_appbar" />
+
     <com.yuyakaido.android.cardstackview.CardStackView
         android:id="@+id/card_stack_view"
-        android:layout_width="344dp"
-        android:layout_height="629dp"
+        android:layout_width="342dp"
+        android:layout_height="607dp"
         android:clipToPadding="false"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
