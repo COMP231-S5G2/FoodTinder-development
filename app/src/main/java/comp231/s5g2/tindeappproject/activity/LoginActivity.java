@@ -123,7 +123,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(layout.getWindowToken(), 0);
 
-                            //TODO redirect to user findingmatch
                             final CustomAlertDialog customAlertDialog = new CustomAlertDialog(LoginActivity.this);
                             customAlertDialog.startLoading();
 
