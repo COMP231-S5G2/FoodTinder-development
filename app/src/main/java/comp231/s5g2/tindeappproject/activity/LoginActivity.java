@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 }
                             },5000);
 
-                            startActivity(new Intent(LoginActivity.this, ViewProfileActivity.class));
+                            startActivity(new Intent(LoginActivity.this, FindingMatchActivity.class));
 
                         }else{
                             Toast.makeText(LoginActivity.this, "Failed to sign in. " +
