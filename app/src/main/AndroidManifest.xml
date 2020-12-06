@@ -46,6 +46,9 @@
         <activity android:name=".activity.MainGroupRoomActivity" />
         <activity android:name=".activity.GroupRoomInfoActivity" /> <!-- Main -->
         <activity android:name=".activity.HomeActivity" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

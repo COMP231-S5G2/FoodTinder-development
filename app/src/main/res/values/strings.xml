@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">tindeAppProject</string>
+    <string name="app_name">tinderAppProject</string>
     <string name="restaurantName">Restaurant Name</string>
     <string name="restaurantPhone">Restaurant Phone Number</string>
     <!-- TODO: Remove or change this placeholder text -->
