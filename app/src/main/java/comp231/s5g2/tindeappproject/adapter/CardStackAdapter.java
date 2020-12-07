@@ -68,7 +68,6 @@ public class CardStackAdapter extends RecyclerView.Adapter<CardStackAdapter.View
                     .into(image);
 
             name.setText(data.getName());
-            //location.setText(gps.getLocation().toString());
             restriction.setText(data.getRestriction());
         }
     }
