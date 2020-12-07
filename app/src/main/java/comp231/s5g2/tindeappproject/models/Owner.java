@@ -6,6 +6,8 @@ public class Owner {
 
     String ownerID;
     Restaurant restaurant;
+    String ownerGmail;
+
 
     public Owner() {
     }
