@@ -19,4 +19,19 @@ public class User {
         this.userPhoneNumber = userPhoneNumber;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUserPhoneNumber() {
+        return userPhoneNumber;
+    }
 }
