@@ -92,7 +92,9 @@ public class CreateRestaurantActivity extends AppCompatActivity {
                     RestaurantFragment fragment = new RestaurantFragment();
                     fragment.Clickable(true);
                     setVisibility(!clicked);
+
                 }
+
         );
     }
 
@@ -116,11 +118,14 @@ public class CreateRestaurantActivity extends AppCompatActivity {
             labelEditMenu.setVisibility(View.INVISIBLE);
             editRestaurant.setVisibility(View.INVISIBLE);
             labelEditRestaurant.setVisibility(View.INVISIBLE);
+
+
         }
 
     }
 
     private void setClickable(boolean clicked) {
+
         editRestaurant.setEnabled(clicked);
         editMenu.setEnabled(clicked);
     }

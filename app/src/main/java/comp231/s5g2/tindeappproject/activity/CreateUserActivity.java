@@ -2,17 +2,30 @@ package comp231.s5g2.tindeappproject.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewDebug;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -21,63 +34,166 @@ import comp231.s5g2.tindeappproject.R;
 import comp231.s5g2.tindeappproject.models.User;
 
 
-public class CreateUserActivity extends AppCompatActivity {
+public class CreateUserActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private FirebaseAuth user = FirebaseAuth.getInstance();
+    private EditText userName, name, email, mobile, password, confirmPassword;
+    private Button createAccount;
+    private TextView logIn;
+    private ProgressDialog mProgressDialog;
+    private Context mContext;
+    private Activity mActivity;
+    private LinearLayout layout;
 
-    private EditText userName;
-    private EditText userEmail;
-    private EditText userPhone;
-    private EditText userPassword;
-    private Button save;
-    String inputEmail, inputPassword;
-    private User userCreation = new User();
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference();
+    String inputUserName, inputName, inputEmail, inputPassword, inputMobile, inputConfirmPw;
+    FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userprofile_edit);
 
-        Intent intent = new Intent(getApplicationContext(), FindingMatchActivity.class);
-        //userEmail = (EditText)findViewById(R.id.editTextEmailUser);
-        //userName =(EditText) findViewById(R.id.editTextPersonName);
-        //userPhone = (EditText)findViewById(R.id.editTextNumber);
-        //userPassword = findViewById(R.id.editTextPasswordCreation);
-        save = (Button)findViewById(R.id.saveUser);
+        //initialize layout
+        userName = findViewById(R.id.etUserName);
+        name = findViewById(R.id.etName);
+        email = findViewById(R.id.etEmail);
+        mobile = findViewById(R.id.etMobile);
+        password = findViewById(R.id.etPassword);
+        confirmPassword = findViewById(R.id.etConfirmPassword);
+        createAccount = findViewById(R.id.btnCreateAccount);
+        logIn = findViewById(R.id.tvLogIn);
+        layout = findViewById(R.id.createUserLayout);
 
-        save.setOnClickListener(v -> {
-            inputEmail = userEmail.getText().toString();
-            inputPassword = userEmail.getText().toString();
-            if (!(inputEmail.isEmpty() || inputPassword.isEmpty())) {
+        //initialize Firebase
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
-                user.createUserWithEmailAndPassword(inputEmail, inputPassword)
-                        .addOnCompleteListener(CreateUserActivity.this, task -> {
+        // Get the application context
+        mContext = getApplicationContext();
+        mActivity = CreateUserActivity.this;
 
-                            if (task.isSuccessful()) {
-                                Log.i("user", "User Created Successfully");
-                                userCreation.setEmail(inputEmail);
-                                userCreation.setName(userName.getText().toString().trim());
-                                userCreation.setUserId("1");
-                                userCreation.setUserPhoneNumber(userPhone.getText().toString());
-                                myRef.child("Users").child(userCreation.getUserId()).setValue(userCreation).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        startActivity(intent);
+        // Initialize the progress dialog
+        mProgressDialog = new ProgressDialog(mActivity);
+
+        createAccount.setOnClickListener(this::onClick);
+        logIn.setOnClickListener(this::onClick);
+
+    }//end of onCreate
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()){
+            case R.id.btnCreateAccount:
+                createAccount();
+                break;
+
+            case R.id.tvLogIn:
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                break;
+        }
+
+    }//end onClick
+
+    //method when user click Create account button
+    private void createAccount() {
+
+        inputUserName = userName.getText().toString().trim();
+        inputName = name.getText().toString().trim();
+        inputEmail = email.getText().toString().trim();
+        inputPassword = password.getText().toString().trim();
+        inputMobile = mobile.getText().toString().trim();
+        inputConfirmPw = confirmPassword.getText().toString().trim();
+
+        if(inputUserName.isEmpty()){
+            userName.setError("username is required");
+            userName.requestFocus();
+            return;
+        }
+
+        if(inputName.isEmpty()){
+            name.setError("Name is required");
+            name.requestFocus();
+            return;
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(inputEmail).matches()){
+            email.setError("Please provide valid email");
+            email.requestFocus();
+            return;
+        }
+
+        if(inputMobile.isEmpty()){
+            mobile.setError("Mobile is required");
+            mobile.requestFocus();
+            return;
+        }
+
+        if(inputPassword.isEmpty()){
+            password.setError("Password is required");
+            password.requestFocus();
+            return;
+        }
+
+        if(password.length() < 6 ){
+            password.setError("Minimum password is 6 characters");
+            password.requestFocus();
+            return;
+        }
+
+        if(inputConfirmPw.isEmpty()){
+            mobile.setError("Password is required");
+            mobile.requestFocus();
+            return;
+        }
+
+        if(!inputConfirmPw.equals(inputPassword)){
+            confirmPassword.setError("Password does not match");
+            confirmPassword.requestFocus();
+            return;
+        }
+
+        mFirebaseAuth.createUserWithEmailAndPassword(inputEmail, inputPassword)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if(task.isSuccessful()) {
+                            User user = new User(inputUserName, inputName, inputEmail, inputMobile);
+
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if(task.isSuccessful()){
+
+                                        //hide keyboard
+                                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                                        imm.hideSoftInputFromWindow(layout.getWindowToken(), 0);
+
+                                        Toast.makeText(CreateUserActivity.this, "Account created", Toast.LENGTH_LONG).show();
+
+                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
+                                    }else {
+                                        Toast.makeText(CreateUserActivity.this, "Failed to register", Toast.LENGTH_LONG).show();
                                     }
-                                });
+                                }
+                            });
 
-                            } else {
-                                Log.i("user", "Error, user not created");
+                        } else {
 
-                            }
+                            //hide keyboard
+                            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(layout.getWindowToken(), 0);
 
-                        });
-            } else {
-                Toast.makeText(CreateUserActivity.this, "Something is not right =/", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+                            Toast.makeText(CreateUserActivity.this, "Failed to register", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+
+    }// end of createAccount
+
 }
